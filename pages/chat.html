@@ -26,10 +26,11 @@
                     <div class="card">
                         <div class="card-content">
                             <!-- Card Title is the person who write the message -->
-                            <span class="card-title">{{m.user_id}}</span>
+                            <span class="card-title">{{m.username}}{{m.author}}</span>
                             <!-- Here comes the message text -->
                             <p>
                                 {{m.message}}
+                                {{m.text}}
                             </p>
                         </div>
                         <div class="card-action">
