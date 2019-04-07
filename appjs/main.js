@@ -8,7 +8,10 @@
             controller: 'LoginController',
             controllerAs : 'logingCtrl'
         }).state('messages', {
-            url: '/home',
+            url: '/home/:id',
+            data: {
+                chid: 1,
+              },
             views: {
                 'chats':{
                     templateUrl: 'pages/chats.html',
@@ -23,7 +26,7 @@
             } 
         
         });
-        $urlRouterProvider.otherwise('/home')
+        $urlRouterProvider.otherwise('/home/1')
     }]);
 
 })();
