@@ -11,8 +11,12 @@
             templateUrl: 'pages/chat.html',
             controller: 'ChatController',
             controllerAs : 'chatCtrl'
+        }).when('/home', {
+            templateUrl: 'pages/home.html',
+            controller: 'HomeController',
+            controllerAs : 'HomeCtrl'
         }).otherwise({
-            redirectTo: '/chat'
+            redirectTo: '/home'
         });
     }]);
 
