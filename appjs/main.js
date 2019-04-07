@@ -9,9 +9,6 @@
             controllerAs : 'logingCtrl'
         }).state('messages', {
             url: '/home/:id',
-            data: {
-                chid: 1,
-              },
             views: {
                 'chats':{
                     templateUrl: 'pages/chats.html',

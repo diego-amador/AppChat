@@ -59,13 +59,22 @@ angular.module('AppChat').controller('MessageCtrl', ['$stateParams', '$state', '
             // Need to figure out who I am
             var author = "Me";
             var nextId = thisCtrl.counter++;
-            thisCtrl.messageList.unshift({"id": nextId, "text" : msg, "author" : author, "like" : 0, "nolike" : 0});
+            thisCtrl.messageList.unshift({"id": nextId, "text" : msg, "author" : author, "likes" : "", "dislikes" : ""});
             thisCtrl.newText = "";
         };
 
+        this.like = function(){
+            
+        };
 
-
-        
+        this.dislike = function(){
+            var msg = thisCtrl.newText;
+            // Need to figure out who I am
+            var author = "Me";
+            var nextId = thisCtrl.counter++;
+            thisCtrl.messageList.unshift({"id": nextId, "text" : msg, "author" : author, "likes" : "", "dislikes" : ""});
+            thisCtrl.newText = "";
+        };
         
 
         this.loadMessages();
