@@ -32,6 +32,10 @@
                                 {{m.message}}
                                 {{m.text}}
                             </p>
+
+                            <div ng-show="'{{m.media}}' != ''">
+                                <img src="static/images/img-{{m.message_id}}-{{m.media}}" width="50%" height="auto">
+                            </div>
                         </div>
                         <div class="card-action">
                             <a class="btn-floating btn-small waves-effect waves-light blue"><i class="material-icons">thumb_up
