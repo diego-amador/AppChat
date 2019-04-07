@@ -1,19 +1,29 @@
 (function() {
 
-    var app = angular.module('AppChat',['ngRoute']);
+    var app = angular.module('AppChat',['ui.router']);
 
-    app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider, $location) {
-        $routeProvider.when('/login', {
+    app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', function ($stateProvider, $urlRouterProvider, $locationProvider, $location) {
+        $stateProvider.state('/login', {
             templateUrl: 'pages/login.html',
             controller: 'LoginController',
             controllerAs : 'logingCtrl'
-        }).when('/chat', {
-            templateUrl: 'pages/chat.html',
-            controller: 'ChatController',
-            controllerAs : 'chatCtrl'
-        }).otherwise({
-            redirectTo: '/chat'
+        }).state('messages', {
+            url: '/home',
+            views: {
+                'chats':{
+                    templateUrl: 'pages/chats.html',
+                    controller: 'ChatCtrl',
+                    controllerAs : 'ChatCtrl',
+                },
+                'messages':{
+                    templateUrl: 'pages/messages.html',
+                    controller: 'MessageCtrl',
+                    controllerAs : 'MessageCtrl',
+                }
+            } 
+        
         });
+        $urlRouterProvider.otherwise('/home')
     }]);
 
 })();

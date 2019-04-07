@@ -2,7 +2,7 @@
 <html lang="en" ng-app="AppChat">
 <head>
     <meta charset="UTF-8">
-    <title>App Chat</title>
+    <title>KHE APP</title>
 
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
@@ -19,11 +19,21 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 </head>
-<body>
-    <center><h2>MyChats</h2></center>
-    <ng-view>
-    </ng-view>
-    <script type="text/javascript" src="appjs/main.js"></script>
-    <script type="text/javascript" src="appjs/chat.js"></script>
+<body class="grey">
+    <center><h2 style="color: rgb(118, 151, 172)">kheApp</h2></center>
+    <div class="row" >
+        <div class="left">
+            <div ui-view=chats>
+            </div>
+        </div>
+        <div class="right">
+            <div ui-view=messages>
+            </div>
+        </div>
+        <script type="text/javascript" src="appjs/main.js"></script>
+        <script type="text/javascript" src="appjs/messages.js"></script>
+        <script type="text/javascript" src="appjs/chats.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.22/angular-ui-router.js"></script>
+    </div>
 </body>
 </html>

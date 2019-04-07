@@ -1,4 +1,4 @@
-angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope','$rootScope', '$location',
+angular.module('AppChat').controller('MessageCtrl', ['$http', '$log', '$scope','$rootScope', '$location',
     function($http, $log, $scope, $rootScope, $location) {
         var thisCtrl = this;
 
@@ -11,7 +11,7 @@ angular.module('AppChat').controller('ChatController', ['$http', '$log', '$scope
           
 
             // First set up the url for the route
-            var url = "http://127.0.0.1:5000/kheApp/dev/messages";
+            var url = "http://127.0.0.1:5000/kheApp/messages/1";
 
             // Now set up the $http object
             // It has two function call backs, one for success and one for error
