@@ -6,17 +6,17 @@
         $routeProvider.when('/login', {
             templateUrl: 'pages/login.html',
             controller: 'LoginController',
-            controllerAs : 'logingCtrl'
+            controllerAs : 'loginCtrl'
+        }).when('/register', {
+            templateUrl: 'pages/registr.html',
+            controller: 'RegisterController',
+            controllerAs : 'registerCtrl'
         }).when('/chat', {
             templateUrl: 'pages/chat.html',
             controller: 'ChatController',
             controllerAs : 'chatCtrl'
-        }).when('/home', {
-            templateUrl: 'pages/home.html',
-            controller: 'HomeController',
-            controllerAs : 'HomeCtrl'
         }).otherwise({
-            redirectTo: '/home'
+            redirectTo: '/login'
         });
     }]);
 
