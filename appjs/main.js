@@ -4,9 +4,23 @@
 
     app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', function ($stateProvider, $urlRouterProvider, $locationProvider, $location) {
         $stateProvider.state('/login', {
-            templateUrl: 'pages/login.html',
-            controller: 'LoginController',
-            controllerAs : 'logingCtrl'
+            url: '/login',
+            views: {
+            'login':{
+                templateUrl: 'pages/login.html',
+                controller: 'LoginCtrl',
+                controllerAs : 'loginCtrl',
+                }
+            }
+        }).state('register', {
+            url: '/register',
+            views: {
+            'register':{
+                templateUrl: 'pages/registr.html',
+                controller: 'RegisterCtrl',
+                controllerAs : 'registerCtrl',
+                }
+            }
         }).state('messages', {
             url: '/home/:id',
             views: {
@@ -20,8 +34,8 @@
                     controller: 'MessageCtrl',
                     controllerAs : 'MessageCtrl',
                 }
-            } 
-        
+            }
+
         });
         $urlRouterProvider.otherwise('/home/1')
     }]);
