@@ -24,6 +24,11 @@
         }).state('messages', {
             url: '/home/:id',
             views: {
+                'logout':{
+                    templateUrl: 'pages/logout.html',
+                    controller: 'LogoutCtrl',
+                    controllerAs : 'logoutCtrl',
+                },
                 'chats':{
                     templateUrl: 'pages/chats.html',
                     controller: 'ChatCtrl',

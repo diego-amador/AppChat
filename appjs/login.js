@@ -10,6 +10,8 @@ angular.module('AppChat').controller('LoginCtrl', ['$stateParams', '$state', '$h
 
         var user_name = "";
 
+        var loggedIn = "FALSE";
+
         this.login = function(){
         var data = {};
         data.email = this.email;
@@ -34,6 +36,7 @@ angular.module('AppChat').controller('LoginCtrl', ['$stateParams', '$state', '$h
                     // tira un mensaje en un alert
                     this.id = response.data.id
                     this.user_name = response.data.user_name
+                    this.loggedIn = "TRUE"
                     alert("Logged in as: " + this.user_name);
                     $location.url('/home/-1');
                 },function (response) {
