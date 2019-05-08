@@ -17,8 +17,8 @@
             views: {
             'register':{
                 templateUrl: 'pages/registr.html',
-                controller: 'RegisterCtrl',
-                controllerAs : 'registerCtrl',
+                controller: 'RegCtrl',
+                controllerAs : 'regCtrl',
                 }
             }
         }).state('messages', {

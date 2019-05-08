@@ -1,22 +1,33 @@
-angular.module('AppChat').controller('LoginCtrl', ['$stateParams', '$state', '$http', '$log', '$scope','$rootScope', '$location',
+angular.module('AppChat').controller('RegCtrl', ['$stateParams', '$state', '$http', '$log', '$scope','$rootScope', '$location',
     function($stateParams, $state, $http, $log, $scope, $rootScope, $location) {
         var thisCtrl = this
 
+        var firstname = "";
+
+        var lastname = "";
+
+        var username = "";
+
         var email = "";
+
+        var phonenumber = "";
 
         var password = "";
 
-        var id = "";
+        //var id = "";
 
-        var user_name = "";
 
-        this.login = function(){
+        this.reg = function(){
         var data = {};
+        data.firstname = this.firstname;
+        data.lastname = this.lastname;
+        data.username = this.username;
         data.email = this.email;
+        data.phonenumber = this.phonenumber;
         data.password = this.password;
 
         // Now create the url with the route to talk with the rest API
-        var reqURL = "http://localhost:5000/kheApp/login";
+        var reqURL = "http://localhost:5000/kheApp/register";
         console.log("reqURL: " + reqURL);
 
         var config = {
@@ -32,10 +43,10 @@ angular.module('AppChat').controller('LoginCtrl', ['$stateParams', '$state', '$h
                 function (response) {
                     console.log(JSON.stringify(response.data));
                     // tira un mensaje en un alert
-                    this.id = response.data.id
-                    this.user_name = response.data.user_name
-                    alert("Logged in as: " + this.user_name);
-                    $location.url('/home/-1');
+                    //this.id = response.data.id
+                    //this.user_name = response.data.user_name
+                    alert("Registration successful! Please log in now.");
+                    $location.url('/login');
                 },function (response) {
                     // This is the error function
                     // If we get here, some error occurred.
@@ -50,7 +61,7 @@ angular.module('AppChat').controller('LoginCtrl', ['$stateParams', '$state', '$h
                         alert("Su sesion expiro. Conectese de nuevo.");
                     }
                     else if (status == 403) {
-                        alert("No esta autorizado a usar el sistema.");
+                        alert("Email o numero de telefono ya existe.");
                     }
                     else if (status == 404) {
                         alert("No se encontro la informacion solicitada.");

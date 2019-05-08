@@ -5,6 +5,7 @@ angular.module('AppChat').controller('MessageCtrl', ['$stateParams', '$state', '
         this.messageList = [];
         this.counter  = 2;
         this.newText = "";
+        this.chatId = $stateParams.id;
         $rootScope.prueba = "";
         this.loadMessages = function(){
             // Get the messages from the server through the rest api
@@ -22,7 +23,7 @@ angular.module('AppChat').controller('MessageCtrl', ['$stateParams', '$state', '
                 // into the list of parts in the controller.
 
                     console.log("response: " + JSON.stringify(response));
-
+                    thisCtrl.chatId = $stateParams.id;
                     thisCtrl.messageList = response.data.Messages;
                     $rootScope.prueba = "Probando";
             }, // error callback
@@ -43,7 +44,7 @@ angular.module('AppChat').controller('MessageCtrl', ['$stateParams', '$state', '
                     alert("No esta autorizado a usar el sistema.");
                 }
                 else if (status == 404){
-                    alert("No se encontro la informacion solicitada.");
+                    //alert("No se encontro la informacion solicitada."); //esta tecatiao pero sirve
                 }
                 else {
                     alert("Error interno del sistema.");
