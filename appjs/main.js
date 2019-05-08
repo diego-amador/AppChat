@@ -37,7 +37,7 @@
             }
 
         });
-        $urlRouterProvider.otherwise('/home/1')
+        $urlRouterProvider.otherwise('/login')
     }]);
 
 })();
