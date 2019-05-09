@@ -58,15 +58,45 @@ angular.module('AppChat').controller('MessageCtrl', ['$stateParams', '$state', '
             
             $log.error("Message Loaded: ", JSON.stringify(thisCtrl.messageList));
         };
-
+        //Function for getting hashtags from message sent
+        this.getHashTags = function (inputText) {  
+            var regex = /(?:^|\s)(?:#)([a-zA-Z\d]+)/gm;
+            var matches = [];
+            var match;
+        
+            while ((match = regex.exec(inputText))) {
+                matches.push(match[1]);
+            }
+        
+            return matches;
+        }
         this.postMsg = function(){
             var msg = thisCtrl.newText;
-            // Need to figure out who I am
-            //var author = "me";
-            //MESSAGE ID MUST BE TAKEN FROM QUERY RESPONCE
+            //POST MESSAGE QUERY WITH (userID)
+            //MSG ID MUST BE TAKEN FROM QUERY RESPONCE 
+            var newMsgId=0 ;
+
             var nextId = thisCtrl.counter++;
             thisCtrl.messageList.unshift({"id": nextId, "text" : msg, "author" : author, "like" : 0, "nolike" : 0});
-            thisCtrl.newText = "";
+            
+
+            //Check Message for Hashtags
+          var  hashtagList =[]
+          hashtagList=this.getHashTags(msg);
+
+          if(hashtagList.length>0)
+          
+          for( tag in hashtagList)
+
+          {
+              //REPLACE WITH QUERY TO HANLE HASHTAG POSTING
+                console.log("Send to DB : " + hashtagList[tag]+ " in message: " + newMsgId);
+          }
+          
+        
+
+          //Clear text box  To complete service//
+          thisCtrl.newText = "";
         };
 
 
