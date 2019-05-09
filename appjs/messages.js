@@ -1,6 +1,10 @@
-angular.module('AppChat').controller('MessageCtrl', ['$stateParams', '$state', '$http', '$log', '$scope','$rootScope', '$location',
-    function($stateParams, $state, $http, $log, $scope, $rootScope, $location) {
+angular.module('AppChat').controller('MessageCtrl', ['$stateParams', '$state', '$http', '$log', '$scope','$rootScope', '$location','$localStorage', 
+    function($stateParams, $state, $http, $log, $scope, $rootScope, $location,$localStorage) {
         var thisCtrl = this;
+       
+       //User Parameters loaded from local storage
+        var userID=$localStorage.id;
+        var author =$localStorage.user_name;
 
         this.messageList = [];
         this.counter  = 2;
@@ -58,12 +62,28 @@ angular.module('AppChat').controller('MessageCtrl', ['$stateParams', '$state', '
         this.postMsg = function(){
             var msg = thisCtrl.newText;
             // Need to figure out who I am
-            var author = "me";
+            //var author = "me";
+            //MESSAGE ID MUST BE TAKEN FROM QUERY RESPONCE
             var nextId = thisCtrl.counter++;
             thisCtrl.messageList.unshift({"id": nextId, "text" : msg, "author" : author, "like" : 0, "nolike" : 0});
             thisCtrl.newText = "";
         };
 
+
+
+            //Controller Function to add a dislike to a message
+            this.dislike = function(id){
+
+
+        
+                console.log(id + " is the DB ID of the message DISLIKED by : "+userID)
+             };
+              //Controller Function to add a like to a message
+         this.like = function(id){
+               
+                
+            console.log(id + " is the DB ID of the message LIKED by : "+userID)
+                 };
 
 
         

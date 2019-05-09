@@ -1,5 +1,5 @@
-angular.module('AppChat').controller('LogoutCtrl', ['$http', '$log', '$scope','$rootScope', '$location',
-    function($http, $log, $scope, $rootScope, $location) {
+angular.module('AppChat').controller('LogoutCtrl', ['$http', '$log', '$scope','$rootScope', '$location','$localStorage',
+    function($http, $log, $scope, $rootScope, $location,$localStorage) {
         var thisCtrl = this;
 
         //this.messageList = [];
@@ -22,7 +22,8 @@ angular.module('AppChat').controller('LogoutCtrl', ['$http', '$log', '$scope','$
                 // into the list of parts in the controller.
 
                     console.log("response: " + JSON.stringify(response));
-
+          //DELETE LOCAL STORAGE INFORMATION
+        $localStorage.$reset();
                     this.login = "FALSE";
                     alert("Logged out");
                     $location.url('/login');

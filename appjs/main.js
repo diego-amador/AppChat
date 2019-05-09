@@ -1,8 +1,8 @@
 (function() {
 
-    var app = angular.module('AppChat',['ui.router']);
+    var app = angular.module('AppChat',['ui.router','ngStorage']);
 
-    app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', function ($stateProvider, $urlRouterProvider, $locationProvider, $location) {
+    app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', function ($stateProvider, $urlRouterProvider, $locationProvider, $location,$localStorage) {
         $stateProvider.state('/login', {
             url: '/login',
             views: {

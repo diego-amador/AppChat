@@ -1,5 +1,7 @@
-angular.module('AppChat').controller('LoginCtrl', ['$stateParams', '$state', '$http', '$log', '$scope','$rootScope', '$location',
-    function($stateParams, $state, $http, $log, $scope, $rootScope, $location) {
+angular.module('AppChat').controller('LoginCtrl', ['$stateParams', '$state', '$http', '$log', '$scope','$rootScope', '$location','$localStorage',
+    
+
+function($stateParams, $state, $http, $log, $scope, $rootScope, $location,$localStorage) {
         var thisCtrl = this
 
         var email = "";
@@ -10,7 +12,12 @@ angular.module('AppChat').controller('LoginCtrl', ['$stateParams', '$state', '$h
 
         var user_name = "";
 
+
+
+
         var loggedIn = "FALSE";
+          
+        
 
         this.login = function(){
         var data = {};
@@ -37,6 +44,11 @@ angular.module('AppChat').controller('LoginCtrl', ['$stateParams', '$state', '$h
                     this.id = response.data.id
                     this.user_name = response.data.user_name
                     this.loggedIn = "TRUE"
+                   
+                   //LOCAL STORAGE SAVING
+                    $localStorage.id=this.id = response.data.id
+                   $localStorage.user_name= response.data.user_name
+
                     alert("Logged in as: " + this.user_name);
                     $location.url('/home/-1');
                 },function (response) {

@@ -34,20 +34,27 @@
                                 {{m.text}}
                             </p>
 
+       
                             <div ng-show="'{{m.media}}' != ''">
                                 <img src="static/images/img-{{m.message_id}}-{{m.media}}" width="50%" height="auto">
                             </div>
                         </div>
                         <div class="card-action">
-                            <a class="btn-floating btn-small waves-effect waves-light blue"><i class="material-icons">thumb_up
-                            </i></a> <span style="color: white" ng-click="MessageCtrl.like()" ng-bind= "m.likes">  </span >
-                            <a class="btn-floating btn-small waves-effect waves-light blue"><i class="material-icons">thumb_down
-                            </i></a><span style="color: white" ng-click="MessageCtrl.dislike()" ng-bind="m.dislikes">  </span>
+                            <a class="btn-floating btn-small waves-effect waves-light blue" type="submit" name="action" 
+                            ng-click="m.likes=m.likes+1; MessageCtrl.like(m.message_id)"><i class="material-icons">thumb_up
+                                                
+                            </i></a> <span style="color: white" ng-bind= "m.likes">  </span >
+                           
+                                <a class="btn-floating btn-small waves-effect waves-light blue" type="submit" name="action" 
+                                ng-click="m.dislikes=m.dislikes+1; MessageCtrl.dislike(m.message_id)"><i class="material-icons">thumb_down
+                            </i></a><span style="color: white" ng-bind="m.dislikes">  </span>
+
+                        
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </div>
