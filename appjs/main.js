@@ -80,6 +80,26 @@
                 }
             }
 
+        }).state('contacts', {
+            url: '/contacts',
+            views: {
+                'logout':{
+                    templateUrl: 'pages/logout.html',
+                    controller: 'LogoutCtrl',
+                    controllerAs : 'logoutCtrl',
+                },
+                'chats':{
+                    templateUrl: 'pages/chats.html',
+                    controller: 'ChatCtrl',
+                    controllerAs : 'ChatCtrl',
+                },
+                'contacts':{
+                    templateUrl: 'pages/contacts.html',
+                    controller: 'ContactCtrl',
+                    controllerAs : 'ContactCtrl',
+                }
+            }
+
         });
         $urlRouterProvider.otherwise('/login')
     }]);
