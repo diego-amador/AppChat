@@ -41,6 +41,65 @@
                 }
             }
 
+        }).state('manageChats', {
+            url: '/chat/:id',
+            views: {
+                'logout':{
+                    templateUrl: 'pages/logout.html',
+                    controller: 'LogoutCtrl',
+                    controllerAs : 'logoutCtrl',
+                },
+                'chats':{
+                    templateUrl: 'pages/chats.html',
+                    controller: 'ChatCtrl',
+                    controllerAs : 'ChatCtrl',
+                },
+                'manageCh':{
+                    templateUrl: 'pages/manageChats.html',
+                    controller: 'ChatSettingCtrl',
+                    controllerAs : 'ChatSettingCtrl',
+                }
+            }
+        }).state('addMembers', {
+            url: '/chatMembers/:id',
+            views: {
+                'logout':{
+                    templateUrl: 'pages/logout.html',
+                    controller: 'LogoutCtrl',
+                    controllerAs : 'logoutCtrl',
+                },
+                'chats':{
+                    templateUrl: 'pages/chats.html',
+                    controller: 'ChatCtrl',
+                    controllerAs : 'ChatCtrl',
+                },
+                'addMember':{
+                    templateUrl: 'pages/addMembers.html',
+                    controller: 'ChatSettingCtrl',
+                    controllerAs : 'ChatSettingCtrl',
+                }
+            }
+
+        }).state('contacts', {
+            url: '/contacts',
+            views: {
+                'logout':{
+                    templateUrl: 'pages/logout.html',
+                    controller: 'LogoutCtrl',
+                    controllerAs : 'logoutCtrl',
+                },
+                'chats':{
+                    templateUrl: 'pages/chats.html',
+                    controller: 'ChatCtrl',
+                    controllerAs : 'ChatCtrl',
+                },
+                'contacts':{
+                    templateUrl: 'pages/contacts.html',
+                    controller: 'ContactCtrl',
+                    controllerAs : 'ContactCtrl',
+                }
+            }
+
         });
         $urlRouterProvider.otherwise('/login')
     }]);
