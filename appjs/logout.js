@@ -1,30 +1,32 @@
-angular.module('AppChat').controller('ChatCtrl', ['$http', '$log', '$scope','$rootScope', '$location',
-    function($http, $log, $scope, $rootScope, $location) {
+angular.module('AppChat').controller('LogoutCtrl', ['$http', '$log', '$scope','$rootScope', '$location','$localStorage',
+    function($http, $log, $scope, $rootScope, $location,$localStorage) {
         var thisCtrl = this;
 
-        this.messageList = [];
-        this.counter  = 2;
-        this.newText = "";
+        //this.messageList = [];
+        //this.counter  = 2;
+        this.login = "TRUE";
         $rootScope.prueba = "";
-        this.loadMessages = function(){
+        this.logout = function(){
             // Get the messages from the server through the rest api
-          
+
 
             // First set up the url for the route
-            var url = "http://127.0.0.1:5000/kheApp/chats";
+            var url = "http://127.0.0.1:5000/kheApp/logout";
 
             // Now set up the $http object
             // It has two function call backs, one for success and one for error
-            $http.get(url).then(// success call back
+            $http.post(url).then(// success call back
                 function (response){
                 // The is the sucess function!
                 // Copy the list of parts in the data variable
                 // into the list of parts in the controller.
 
                     console.log("response: " + JSON.stringify(response));
-
-                    thisCtrl.messageList = response.data.Chat;
-                    $rootScope.prueba = "Probando";
+          //DELETE LOCAL STORAGE INFORMATION
+        $localStorage.$reset();
+                    this.login = "FALSE";
+                    alert("Logged out");
+                    $location.url('/login');
             }, // error callback
             function (response){
                 // This is the error function
@@ -49,21 +51,6 @@ angular.module('AppChat').controller('ChatCtrl', ['$http', '$log', '$scope','$ro
                     alert("Error interno del sistema.");
                 }
             });
-
-            
-            $log.error("Message Loaded: ", JSON.stringify(thisCtrl.messageList));
         };
 
-        // this.postMsg = function(){
-        //     var msg = thisCtrl.newText;
-        //     // Need to figure out who I am
-        //     var author = "Me";
-        //     var nextId = thisCtrl.counter++;
-        //     thisCtrl.messageList.unshift({"id": nextId, "text" : msg, "author" : author, "like" : 0, "nolike" : 0});
-        //     thisCtrl.newText = "";
-        // };
-
-
-
-        this.loadMessages();
 }]);

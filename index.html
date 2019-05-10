@@ -18,6 +18,9 @@
     <!-- AngularJS -->
     <script src="js/angular.js"></script>
     <script src="js/angular-route.js"></script>
+     <!-- AngularJS Local storage module -->
+     <script src="js/ngStorage.min.js"></script>
+
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 </head>
@@ -25,6 +28,8 @@
     <center><h2 style="color: rgb(118, 151, 172)">kheApp</h2></center>
     <div class="row" >
         <div class="left">
+            <div ui-view=logout>
+            </div>
             <div ui-view=chats>
             </div>
         </div>
@@ -43,6 +48,9 @@
         <script type="text/javascript" src="appjs/main.js"></script>
         <script type="text/javascript" src="appjs/messages.js"></script>
         <script type="text/javascript" src="appjs/chats.js"></script>
+        <script type="text/javascript" src="appjs/login.js"></script>
+        <script type="text/javascript" src="appjs/logout.js"></script>
+        <script type="text/javascript" src="appjs/reg.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.22/angular-ui-router.js"></script>
     </div>
 </body>

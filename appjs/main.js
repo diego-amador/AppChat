@@ -1,8 +1,8 @@
 (function() {
 
-    var app = angular.module('AppChat',['ui.router']);
+    var app = angular.module('AppChat',['ui.router','ngStorage']);
 
-    app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', function ($stateProvider, $urlRouterProvider, $locationProvider, $location) {
+    app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', function ($stateProvider, $urlRouterProvider, $locationProvider, $location,$localStorage) {
         $stateProvider.state('/login', {
             url: '/login',
             views: {
@@ -17,13 +17,18 @@
             views: {
             'register':{
                 templateUrl: 'pages/registr.html',
-                controller: 'RegisterCtrl',
-                controllerAs : 'registerCtrl',
+                controller: 'RegCtrl',
+                controllerAs : 'regCtrl',
                 }
             }
         }).state('messages', {
             url: '/home/:id',
             views: {
+                'logout':{
+                    templateUrl: 'pages/logout.html',
+                    controller: 'LogoutCtrl',
+                    controllerAs : 'logoutCtrl',
+                },
                 'chats':{
                     templateUrl: 'pages/chats.html',
                     controller: 'ChatCtrl',
@@ -37,7 +42,7 @@
             }
 
         });
-        $urlRouterProvider.otherwise('/home/1')
+        $urlRouterProvider.otherwise('/login')
     }]);
 
 })();
