@@ -169,7 +169,7 @@ angular.module('AppChat').controller('ContactCtrl', ['$stateParams', '$state', '
                         alert("No hay conexion a Internet");
                     }
                     else if (status == 400) {
-                    alert("No puede remover usuarios si no eres admin.");
+                    alert("Usuario no existe.");
                     }
                     else if (status == 403) {
                         alert("No esta autorizado a usar el sistema.");
