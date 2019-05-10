@@ -60,6 +60,25 @@
                     controllerAs : 'ChatSettingCtrl',
                 }
             }
+        }).state('addMembers', {
+            url: '/chatMembers/:id',
+            views: {
+                'logout':{
+                    templateUrl: 'pages/logout.html',
+                    controller: 'LogoutCtrl',
+                    controllerAs : 'logoutCtrl',
+                },
+                'chats':{
+                    templateUrl: 'pages/chats.html',
+                    controller: 'ChatCtrl',
+                    controllerAs : 'ChatCtrl',
+                },
+                'addMember':{
+                    templateUrl: 'pages/addMembers.html',
+                    controller: 'ChatSettingCtrl',
+                    controllerAs : 'ChatSettingCtrl',
+                }
+            }
 
         });
         $urlRouterProvider.otherwise('/login')

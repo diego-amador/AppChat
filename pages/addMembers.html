@@ -12,20 +12,17 @@
                     <!--</a>-->
                     <!--hello {{ChatSettingCtrl.messageList}}-->
                     <div style="color: white">
-                        <h3>Chat Members <a ui-sref="addMembers({id:ChatSettingCtrl.chId})" class="waves-effect waves-light btn blue">Add Members</a>
-                        <a class="waves-effect waves-light btn blue" ng-click="ChatSettingCtrl.removeChat()">Delete Chat {{ChatSettingCtrl.chId}}</a>
-                        </h3>
+                        <h3>Contacts <a ui-sref="manageChats({id:ChatSettingCtrl.chId})" class="waves-effect waves-light btn blue">Go back to Chat Members</a> </h3>
                     </div>
                 </div>
             </div>
         </div>
 
     </div>
-
-    <!--<div  id="chat-list" style="height:300px;overflow:auto">-->
+        <!--<div  id="chat-list" style="height:300px;overflow:auto">-->
     <div>
         <!-- Here come the messages in the chat, each one presented in card -->
-        <div ng-repeat="c in ChatSettingCtrl.messageList">
+        <div ng-repeat="c in ChatSettingCtrl.contactsList">
             <!-- This card prodives space for the message and Like/dislike buttons -->
             <div class="row">
                 <div class="col s12 m12">
@@ -37,7 +34,7 @@
 
                         </div>
                         <div class="card-action">
-                            <a class="waves-effect waves-light btn blue" ng-click="ChatSettingCtrl.removeUser(c.cid)">Remove</a>
+                            <a class="waves-effect waves-light btn blue" ng-click="ChatSettingCtrl.addUser(c.cid)">Add</a>
                         </div>
                     </div>
                 </div>
