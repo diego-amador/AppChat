@@ -6,6 +6,7 @@ angular.module('AppChat').controller('MessageCtrl', ['$stateParams', '$state', '
         var userID=$localStorage.id;
         var author =$localStorage.user_name;
 
+        this.isMember = "";
         this.messageList = [];
         this.counter  = 2;
         this.newText = "";
@@ -27,6 +28,7 @@ angular.module('AppChat').controller('MessageCtrl', ['$stateParams', '$state', '
                 // into the list of parts in the controller.
 
                     console.log("response: " + JSON.stringify(response));
+                    thisCtrl.isMember = 1;
                     thisCtrl.chatId = $stateParams.id;
                     thisCtrl.messageList = response.data.Messages;
                     $rootScope.prueba = "Probando";
@@ -45,7 +47,8 @@ angular.module('AppChat').controller('MessageCtrl', ['$stateParams', '$state', '
                     alert("Su sesion expiro. Conectese de nuevo.");
                 }
                 else if (status == 403){
-                    alert("No esta autorizado a usar el sistema.");
+                    thisCtrl.isMember = -1;
+                    alert("No esta autorizado al chat." + this.isMember);
                 }
                 else if (status == 404){
                     //alert("No se encontro la informacion solicitada."); //esta tecatiao pero sirve
