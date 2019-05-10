@@ -271,55 +271,55 @@ angular.module('AppChat').controller('MessageCtrl', ['$stateParams', '$state', '
                   );
         }
 
-        this.loadReplies = function(){
-            // Get the messages from the server through the rest api
-            // First set up the url for the route
-            var url = "http://127.0.0.1:5000/kheApp/messages/replies";
-
-            // Now set up the $http object
-            // It has two function call backs, one for success and one for error
-            $http.get(url).then(// success call back
-                function (response){
-                // The is the sucess function!
-                // Copy the list of parts in the data variable
-                // into the list of parts in the controller.
-
-                    console.log("response: " + JSON.stringify(response));
-                    //thisCtrl.isMember = 1;
-                    //thisCtrl.chatId = $stateParams.id;
-                    thisCtrl.repliesList = response.data.Messages;
-                    //alert("heloooo");
-                    $rootScope.prueba = "Probando";
-                    thisCtrl.repliesIdOnly();
-            }, // error callback
-            function (response){
-                // This is the error function
-                // If we get here, some error occurred.
-                // Verify which was the cause and show an alert.
-                console.log("Err response: " + JSON.stringify(response));
-
-                var status = response.status;
-                if (status == 0){
-                    alert("No hay conexion a Internet");
-                }
-                else if (status == 401){
-                    alert("Su sesion expiro. Conectese de nuevo.");
-                }
-                else if (status == 403){
-                    //thisCtrl.isMember = -1;
-                    alert("No esta autorizado al chat." + this.isMember);
-                }
-                else if (status == 404){
-                    //alert("No se encontro la informacion solicitada."); //esta tecatiao pero sirve
-                }
-                else {
-                    alert("Error interno del sistema.");
-                }
-            });
-
-
-            $log.error("Replies Loaded: ", JSON.stringify(thisCtrl.messageList));
-        };
+//        this.loadReplies = function(){
+//            // Get the messages from the server through the rest api
+//            // First set up the url for the route
+//            var url = "http://127.0.0.1:5000/kheApp/messages/replies";
+//
+//            // Now set up the $http object
+//            // It has two function call backs, one for success and one for error
+//            $http.get(url).then(// success call back
+//                function (response){
+//                // The is the sucess function!
+//                // Copy the list of parts in the data variable
+//                // into the list of parts in the controller.
+//
+//                    console.log("response: " + JSON.stringify(response));
+//                    //thisCtrl.isMember = 1;
+//                    //thisCtrl.chatId = $stateParams.id;
+//                    thisCtrl.repliesList = response.data.Messages;
+//                    //alert("heloooo");
+//                    $rootScope.prueba = "Probando";
+//                    thisCtrl.repliesIdOnly();
+//            }, // error callback
+//            function (response){
+//                // This is the error function
+//                // If we get here, some error occurred.
+//                // Verify which was the cause and show an alert.
+//                console.log("Err response: " + JSON.stringify(response));
+//
+//                var status = response.status;
+//                if (status == 0){
+//                    alert("No hay conexion a Internet");
+//                }
+//                else if (status == 401){
+//                    alert("Su sesion expiro. Conectese de nuevo.");
+//                }
+//                else if (status == 403){
+//                    //thisCtrl.isMember = -1;
+//                    alert("No esta autorizado al chat." + this.isMember);
+//                }
+//                else if (status == 404){
+//                    //alert("No se encontro la informacion solicitada."); //esta tecatiao pero sirve
+//                }
+//                else {
+//                    alert("Error interno del sistema.");
+//                }
+//            });
+//
+//
+//            $log.error("Replies Loaded: ", JSON.stringify(thisCtrl.messageList));
+//        };
 
         //Controller Function to add a dislike to a message
         this.dislike = function(id){
@@ -338,7 +338,7 @@ angular.module('AppChat').controller('MessageCtrl', ['$stateParams', '$state', '
         }
 
         this.loadMessages();
-        this.loadReplies();
+        //this.loadReplies();
 
 
 }]);
