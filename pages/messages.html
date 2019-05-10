@@ -55,10 +55,8 @@
                                     </i></a><span style="color: white" ng-bind="m.dislikes">  </span>
 
                                     <div>Replies</div>
-                                    <div ng-repeat = "r in MessageCtrl.repliesList">
-                                        <div ng-hide="'{{m.message_id}}' != '{{r.original}}'">
                                              <div ng-repeat = "n in MessageCtrl.messageList">
-                                                <div ng-show="'{{n.message_id}}' == '{{r.reply}}'">
+                                                <div ng-show="'{{n.reply}}' == '{{m.message_id}}'">
 
                                                     <div class="card-content">
                                                         <!-- Card Title is the person who write the message -->
@@ -71,8 +69,6 @@
                                                     </div>
                                                 </div>
                                              </div>
-                                        </div>
-                                     </div>
                                 </div>
 
                                 <!--reply form-->
