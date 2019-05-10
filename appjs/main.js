@@ -41,6 +41,26 @@
                 }
             }
 
+        }).state('manageChats', {
+            url: '/chat/:id',
+            views: {
+                'logout':{
+                    templateUrl: 'pages/logout.html',
+                    controller: 'LogoutCtrl',
+                    controllerAs : 'logoutCtrl',
+                },
+                'chats':{
+                    templateUrl: 'pages/chats.html',
+                    controller: 'ChatCtrl',
+                    controllerAs : 'ChatCtrl',
+                },
+                'manageCh':{
+                    templateUrl: 'pages/manageChats.html',
+                    controller: 'ChatSettingCtrl',
+                    controllerAs : 'ChatSettingCtrl',
+                }
+            }
+
         });
         $urlRouterProvider.otherwise('/login')
     }]);
