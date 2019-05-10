@@ -106,25 +106,12 @@ angular.module('AppChat').controller('MessageCtrl', ['$stateParams', '$state', '
                 // Success function
                 function (response) {
                     console.log(JSON.stringify(response.data));
-                    // tira un mensaje en un alert
                     newMsgId = response.data.id
-                    //this.user_name = response.data.user_name
-                    //this.loggedIn = "TRUE"
-
-                   //LOCAL STORAGE SAVING
-                   //$localStorage.id=this.id = response.data.id
-                   //$localStorage.user_name= response.data.user_name
-
                     alert("msg id: " + newMsgId); //for debugging purposes
                     thisCtrl.cycleHashtags();
-                    //$location.url('/home/-1');
+
                 },function (response) {
-                    // This is the error function
-                    // If we get here, some error occurred.
-                    // Verify which was the cause and show an alert.
                     var status = response.status;
-                    //console.log("Error: " + reqURL);
-                    //alert("Cristo");
                     if (status == 0) {
                         alert("No hay conexion a Internet");
                     }
@@ -143,14 +130,11 @@ angular.module('AppChat').controller('MessageCtrl', ['$stateParams', '$state', '
                 }
             );
 
-
-
             var nextId = thisCtrl.counter++;
             thisCtrl.messageList.unshift({"id": nextId, "text" : msg, "author" : author, "like" : 0, "nolike" : 0});
 
-                  //Clear text box  To complete service//
-                  thisCtrl.newText = "";
-                };
+            thisCtrl.newText = "";
+        };
 
         this.cycleHashtags = function(){
           //Check Message for Hashtags
@@ -226,83 +210,16 @@ angular.module('AppChat').controller('MessageCtrl', ['$stateParams', '$state', '
                   );
         }
 
-
-
         //Controller Function to add a dislike to a message
         this.dislike = function(id){
-
-                console.log(id + " is the DB ID of the message DISLIKED by : "+userID)
-             };
+            console.log(id + " is the DB ID of the message DISLIKED by : "+userID)
+        };
 
         //Controller Function to add a like to a message
         this.like = function(id){
-               
-                
             console.log(id + " is the DB ID of the message LIKED by : "+userID)
-                 };
-
-
-        
-        
+        };
 
         this.loadMessages();
 
-
-        /*
-        var data = {};
-                  data.hashtag = tag; //text in textbox
-                  data.id = newMsgId;
-
-                  // Now create the url with the route to talk with the rest API
-                  var reqHASHURL = "http://127.0.0.1:5000/kheApp/hashtag
-                  console.log("reqURL: " + reqHASHURL);
-
-                  var config = {
-                          headers : {
-                              'Content-Type': 'application/json;charset=utf-8;'
-                              //'Content-Type': 'application/x-www-form-urlencoded;'
-
-                          }
-                  }
-
-                  $http.post(reqHASHURL, data, config).then(
-                          // Success function
-                          function (response) {
-                              console.log(JSON.stringify(response.data));
-                              // tira un mensaje en un alert
-                              //newMsgId = response.data.id
-                              //this.user_name = response.data.user_name
-                              //this.loggedIn = "TRUE"
-
-                             //LOCAL STORAGE SAVING
-                             //$localStorage.id=this.id = response.data.id
-                             //$localStorage.user_name= response.data.user_name
-
-                              alert("hashtag added"); //for debugging purposes
-                              //$location.url('/home/-1');
-                          },function (response) {
-                              // This is the error function
-                              // If we get here, some error occurred.
-                              // Verify which was the cause and show an alert.
-                              var status = response.status;
-                              //console.log("Error: " + reqURL);
-                              //alert("Cristo");
-                              if (status == 0) {
-                                  alert("No hay conexion a Internet");
-                              }
-                                else if (status == 401) {
-                                    alert("Su sesion expiro. Conectese de nuevo.");
-                                }
-                                else if (status == 403) {
-                                    alert("No esta autorizado a usar el sistema.");
-                                }
-                                else if (status == 404) {
-                                    alert("No se encontro la informacion solicitada.");
-                                }
-                                else {
-                                    alert("Error interno del sistema.");
-                                }
-                            }
-                  );
-                  */
 }]);
