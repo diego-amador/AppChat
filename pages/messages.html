@@ -54,7 +54,7 @@
                                         ng-click="m.dislikes=m.dislikes+1; MessageCtrl.dislike(m.message_id)"><i class="material-icons">thumb_down
                                     </i></a><span style="color: white" ng-bind="m.dislikes">  </span>
 
-                                    <div><h5>Replies</h5></div>
+                                    <div style="color: white"><h5>Replies</h5></div>
                                              <div ng-repeat = "n in MessageCtrl.messageList">
                                                 <div ng-show="'{{n.reply}}' == '{{m.message_id}}'">
 
@@ -64,7 +64,6 @@
                                                         <!-- Here comes the message text -->
                                                         <p style="color: white">
                                                             {{n.message}}
-                                                            <!--{{n.text}}-->
                                                         </p>
                                                     </div>
                                                 </div>
