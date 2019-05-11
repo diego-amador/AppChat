@@ -111,7 +111,7 @@
             $scope.errFile = errFiles && errFiles[0];
             if (file) {
                 file.upload = Upload.upload({
-                    url: 'static/images',
+                    url: 'https://angular-file-upload-cors-srv.appspot.com/upload',
                     data: {file: file}
                 });
     
