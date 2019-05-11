@@ -554,7 +554,39 @@ angular.module('AppChat').controller('MessageCtrl', ['$stateParams', '$state', '
 
             $log.error("Replies Loaded: ", JSON.stringify(thisCtrl.messageList));
         };
+        this.dislikeCheck =function(mid)
+        {
+            angular.forEach($localStorage.messageList, function(value, key) {
+                if(value.message_id==mid)
+                {
+                   if( value.disliked==false || value.dislikes > 0)
+                   {
+                        value.dislikes=(value.dislikes-1);
 
+                   }
+
+
+                }
+              });
+
+        }
+
+        this.likeCheck =function(mid)
+        {
+            angular.forEach($localStorage.messageList, function(value, key) {
+                if(value.message_id==mid)
+                {
+                   if( value.liked==false || value.likes > 0)
+                   {
+                        value.likes=(value.likes-1);
+
+                   }
+
+
+                }
+              });
+
+        }
         //Controller Function to add a like to a message
         this.like = function(id){
 
