@@ -14,15 +14,11 @@ angular.module('AppChat').controller('MessageCtrl', ['$stateParams', '$state', '
         var msg = ""; //not necessary
         this.newMsgId;
         this.isMember = "";
-<<<<<<< HEAD
-        this.messageList=[];
         this.messageList = $localStorage.messageList;
        
-=======
         this.messageList = [];
         this.repliesList = [];
         this.replies = [];
->>>>>>> fd4aac806886817d65e303d7ee402baea7e16afe
         this.counter  = 2;
         this.newText = "";
         this.newTextReply = "";
