@@ -40,16 +40,24 @@
                             </div>
                         </div>
                         <div class="card-action">
-                            <a class="btn-floating btn-small waves-effect waves-light blue" type="submit" name="action" 
-                            ng-click="m.likes=m.likes+1; MessageCtrl.like(m.message_id)"><i class="material-icons">thumb_up
+                                <div ng-app  >
+                                       
+                            <a ng-disabled="m.liked==false" 
+                            
+                            id="likeButton" class="btn-floating btn-small waves-effect waves-light blue" type="submit" name="action" 
+                            ng-click="m.likes=m.likes+1; MessageCtrl.like(m.message_id); m.liked=false; m.disliked=true"><i class="material-icons">thumb_up
                                                 
                             </i></a> <span style="color: white" ng-bind= "m.likes">  </span >
-                           
-                                <a class="btn-floating btn-small waves-effect waves-light blue" type="submit" name="action" 
-                                ng-click="m.dislikes=m.dislikes+1; MessageCtrl.dislike(m.message_id)"><i class="material-icons">thumb_down
+                            
+                                
+                                <a ng-disabled="m.disliked==false" 
+                                
+                                id ="dislikeButton" class="btn-floating btn-small waves-effect waves-light blue" type="submit" name="action" 
+                                ng-click="m.dislikes=m.dislikes+1; MessageCtrl.dislike(m.message_id);m.disliked=false; m.liked=true"><i class="material-icons">thumb_down
                             </i></a><span style="color: white" ng-bind="m.dislikes">  </span>
 
                         
+                        </div>
 
                         </div>
                     </div>
