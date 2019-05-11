@@ -5,13 +5,30 @@
             <div class="card light-grey ">
                 <div class="card-content ">
                     <i class="material-icons prefix" style="color: white">mode_edit</i> <span text-white style="font-size:larger; color:white">Message:</span>
-                     <textarea style="background: white" id="textarea1" class="materialize-textarea" ng-model="MessageCtrl.newText" required></textarea>
+                    <textarea style="background: white" id="textarea1" class="materialize-textarea" ng-model="MessageCtrl.newText" required></textarea>
                 </div>
+                
                 <div class="card-action light-grey">
                     <a ng-disabled="!MessageCtrl.newText" class="btn waves-effect waves-light blue" type="submit" name="action" ng-click="MessageCtrl.postMsg()">Send
-                    <i class="material-icons right">send</i>
-                    </a>
+                </a>
+                    <!-- <a class="material-icons btn waves-effect waves-light blue" type="file" ngf-select="uploadFiles($file, $invalidFiles)" accept="image/*" ngf-max-height="1000" ngf-max-size="1MB">
+                    <i class="material-icons">attach_file</i></a>-->
+                    <form ng-app="AppChat" ng-controller="MyCtrl" name="form">
+                        <a class="material-icons btn waves-effect waves-light blue" type="file" ngf-select="uploadFiles($file, $invalidFiles)" accept="image/*" ngf-max-height="1000" ngf-max-size="20MB">
+                        <i class="material-icons">attach_file</i></a>
+
+                        <div style="font:smaller">{{f.name}} {{errFile.name}} {{errFile.$error}} {{errFile.$errorParam}}
+                                <span class="progress" ng-show="f.progress >= 0">
+                                    <div style="width:{{f.progress}}%"  
+                                         ng-bind="f.progress + '%'"></div>
+                                </span>
+                            </div>     
+                            {{errorMsg}}
+                    </form>
                 </div>
+                <div style="font:smaller">{{f.name}} {{errFile.name}} {{errFile.$error}} {{errFile.$errorParam}}
+            </div>     
+            {{errorMsg}}
             </div>
         </div>
 
@@ -34,7 +51,7 @@
                                 {{m.text}}
                             </p>
 
-       
+    
                             <div ng-show="'{{m.media}}' != ''">
                                 <img src="static/images/img-{{m.message_id}}-{{m.media}}" width="50%" height="auto">
                             </div>
@@ -44,7 +61,7 @@
                             ng-click="m.likes=m.likes+1; MessageCtrl.like(m.message_id)"><i class="material-icons">thumb_up
                                                 
                             </i></a> <span style="color: white" ng-bind= "m.likes">  </span >
-                           
+                        
                                 <a class="btn-floating btn-small waves-effect waves-light blue" type="submit" name="action" 
                                 ng-click="m.dislikes=m.dislikes+1; MessageCtrl.dislike(m.message_id)"><i class="material-icons">thumb_down
                             </i></a><span style="color: white" ng-bind="m.dislikes">  </span>
