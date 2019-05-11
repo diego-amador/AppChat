@@ -512,12 +512,92 @@ angular.module('AppChat').controller('MessageCtrl', ['$stateParams', '$state', '
 
         //Controller Function to add a dislike to a message
         this.dislike = function(id){
+
+
             console.log(id + " is the DB ID of the message DISLIKED by : "+userID)
+
+            var url = "http://127.0.0.1:5000/kheApp/messages/dislike/"+id;
+
+            
+            $http.post(url).then(// success call back
+                function (response){
+               
+
+                    console.log("response: " + JSON.stringify(response));
+                    
+            }, // error callback
+            function (response){
+                // This is the error function
+                // If we get here, some error occurred.
+                // Verify which was the cause and show an alert.
+                console.log("Err response: " + JSON.stringify(response));
+
+                var status = response.status;
+                if (status == 0){
+                    alert("No hay conexion a Internet");
+                }
+                else if (status == 401){
+                    alert("Su sesion expiro. Conectese de nuevo.");
+                }
+                else if (status == 403){
+                    //thisCtrl.isMember = -1;
+                    alert("No esta autorizado al chat." + this.isMember);
+                }
+                else if (status == 404){
+                    //alert("No se encontro la informacion solicitada."); //esta tecatiao pero sirve
+                }
+                else {
+                    alert("Error interno del sistema.");
+                }
+            });
+
+
+            $log.error("Replies Loaded: ", JSON.stringify(thisCtrl.messageList));
         };
 
         //Controller Function to add a like to a message
         this.like = function(id){
-            console.log(id + " is the DB ID of the message LIKED by : "+userID)
+
+            
+
+            var url = "http://127.0.0.1:5000/kheApp/messages/like/"+id;
+
+            
+            $http.post(url).then(// success call back
+                function (response){
+               
+
+                    console.log("response: " + JSON.stringify(response));
+                    
+            }, // error callback
+            function (response){
+                // This is the error function
+                // If we get here, some error occurred.
+                // Verify which was the cause and show an alert.
+                console.log("Err response: " + JSON.stringify(response));
+
+                var status = response.status;
+                if (status == 0){
+                    alert("No hay conexion a Internet");
+                }
+                else if (status == 401){
+                    alert("Su sesion expiro. Conectese de nuevo.");
+                }
+                else if (status == 403){
+                    //thisCtrl.isMember = -1;
+                    alert("No esta autorizado al chat." + this.isMember);
+                }
+                else if (status == 404){
+                    //alert("No se encontro la informacion solicitada."); //esta tecatiao pero sirve
+                }
+                else {
+                    alert("Error interno del sistema.");
+                }
+            });
+
+
+            $log.error("Replies Loaded: ", JSON.stringify(thisCtrl.messageList));
+
         };
 
         this.repliesIdOnly = function(){
