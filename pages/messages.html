@@ -51,22 +51,25 @@
 
 
                             <div class="card-action">
-                                    <div ng-app  >
-
-                                <a ng-disabled="m.liked==false"
-
-                                id="likeButton" class="btn-floating btn-small waves-effect waves-light blue" type="submit" name="action"
-                                ng-click="m.likes=m.likes+1; MessageCtrl.like(m.message_id); m.liked=false; m.disliked=true"><i class="material-icons">thumb_up
-
-                                </i></a> <span style="color: white" ng-bind= "m.likes">  </span >
+                                <div ng-app  >
 
 
-                                    <a ng-disabled="m.disliked==false"
+                                        <a ng-disabled="m.liked==false"
 
-                                    id ="dislikeButton" class="btn-floating btn-small waves-effect waves-light blue" type="submit" name="action"
-                                    ng-click="m.dislikes=m.dislikes+1; MessageCtrl.dislike(m.message_id);m.disliked=false; m.liked=true"><i class="material-icons">thumb_down
-                                </i></a><span style="color: white" ng-bind="m.dislikes">  </span>
-                            </div>
+                                        id="likeButton1" class="btn-floating btn-small waves-effect waves-light blue" type="submit" name="action"
+                                        ng-click="m.likes=m.likes+1; MessageCtrl.like(m.message_id); m.liked=false; m.disliked=true"><i class="material-icons">thumb_up
+
+                                        </i></a> <span style="color: white" ng-bind= "m.likes">  </span >
+
+
+                                        <a ng-disabled="m.disliked==false"
+
+                                        id ="dislikeButton1" class="btn-floating btn-small waves-effect waves-light blue" type="submit" name="action"
+                                        ng-click="m.dislikes=m.dislikes+1; MessageCtrl.dislike(m.message_id);m.disliked=false; m.liked=true"><i class="material-icons">thumb_down
+                                        </i></a><span style="color: white" ng-bind="m.dislikes">  </span>
+
+
+                                </div>
 
                                         <div style="color: white"><h5>Replies</h5></div>
                                                  <div ng-repeat = "n in MessageCtrl.messageList">
@@ -82,7 +85,7 @@
                                                         </div>
                                                     </div>
                                                  </div>
-                                        </div>
+                            </div>
 
                                     <!--reply form-->
                                             <div class="card-content ">
