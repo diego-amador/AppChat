@@ -22,6 +22,7 @@
         <!-- Here come the messages in the chat, each one presented in card -->
         <div ng-repeat="m in MessageCtrl.messageList">
             <!-- This card prodives space for the message and Like/dislike buttons -->
+<<<<<<< HEAD
             <div class="row">
                 <div class="col s12 m12">
                     <div class="card light-grey">
@@ -58,11 +59,74 @@
 
                         
                         </div>
+=======
+>>>>>>> fd4aac806886817d65e303d7ee402baea7e16afe
 
+
+                <div ng-hide="'{{m.reply}}' != ''">
+                    <div class="row">
+                        <div class="col s12 m12">
+                            <div class="card light-grey">
+                                <div class="card-content">
+                                    <!-- Card Title is the person who write the message -->
+                                    <span style="color: white" class="card-title">{{m.username}}{{m.author}}</span>
+                                    <!-- Here comes the message text -->
+                                    <p style="color: white">
+                                        {{m.message}}
+                                        {{m.text}}
+                                    </p>
+
+
+                                    <div ng-show="'{{m.media}}' != ''">
+                                        <img src="static/images/img-{{m.message_id}}-{{m.media}}" width="50%" height="auto">
+                                    </div>
+                                </div>
+
+                                <!--replies list-->
+                                <div class="card-action">
+                                    <a class="btn-floating btn-small waves-effect waves-light blue" type="submit" name="action"
+                                    ng-click="m.likes=m.likes+1; MessageCtrl.like(m.message_id)"><i class="material-icons">thumb_up
+
+                                    </i></a> <span style="color: white" ng-bind= "m.likes">  </span >
+
+                                        <a class="btn-floating btn-small waves-effect waves-light blue" type="submit" name="action"
+                                        ng-click="m.dislikes=m.dislikes+1; MessageCtrl.dislike(m.message_id)"><i class="material-icons">thumb_down
+                                    </i></a><span style="color: white" ng-bind="m.dislikes">  </span>
+
+                                    <div>Replies</div>
+                                             <div ng-repeat = "n in MessageCtrl.messageList">
+                                                <div ng-show="'{{n.reply}}' == '{{m.message_id}}'">
+
+                                                    <div class="card-content">
+                                                        <!-- Card Title is the person who write the message -->
+                                                        <span style="color: white" class="card-title">{{n.username}}{{n.author}}</span>
+                                                        <!-- Here comes the message text -->
+                                                        <p style="color: white">
+                                                            {{n.message}}
+                                                            <!--{{n.text}}-->
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                             </div>
+                                </div>
+
+                                <!--reply form-->
+                                        <div class="card-content ">
+                                            <i class="material-icons prefix" style="color: white">mode_edit</i> <span text-white style="font-size:larger; color:white">Reply:</span>
+                                             <textarea style="background: white" id="textarea2" class="materialize-textarea" ng-model="MessageCtrl.newTextReply" required></textarea>
+                                        </div>
+                                        <div class="card-action light-grey">
+                                            <a ng-disabled="!MessageCtrl.newTextReply" class="btn waves-effect waves-light blue" type="submit" name="action" ng-click="MessageCtrl.postReply(m.message_id)">reply
+                                            <i class="material-icons right">reply</i>
+                                            </a>
+                                        </div>
+
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+
         </div>
     </div>
+</div>
 </div>

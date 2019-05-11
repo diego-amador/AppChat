@@ -7,11 +7,10 @@
                         <!--<a class="waves-effect waves-light btn btn-link blue" type="submit" name="action" ng-click="ChatCtrl.sccf()">Show Create Chat</a>-->
 
                         <div ng-hide="ChatCtrl.cc == '-1'" class="ng-hide">
-                    <i class="material-icons prefix" style="color: white">mode_edit</i> <span text-white style="font-size:larger; color:white">Message:</span>
-                     <textarea style="background: white" id="textarea1" class="materialize-textarea" ng-model="ChatCtrl.newText" required></textarea>
-                    <a ng-disabled="!ChatCtrl.newText" class="btn waves-effect waves-light blue" type="submit" name="action" ng-click="ChatCtrl.createChat()">Create Chat
-                    <i class="material-icons right">send</i>
-                    </a>
+                            <textarea style="background: white" id="textarea1" class="materialize-textarea" ng-model="ChatCtrl.newText" required></textarea>
+                            <a ng-disabled="!ChatCtrl.newText" class="btn waves-effect waves-light blue" type="submit" name="action" ng-click="ChatCtrl.createChat()">Create Chat
+                            <i class="material-icons right">send</i>
+                            </a>
                         </div>
 
                     </div>
@@ -35,6 +34,7 @@
                             </div>
                             <div class="card-action">
                                     <a ui-sref="messages({id:m.chid})" class="waves-effect waves-light btn blue">View</a>
+                                    <a ui-sref="manageChats({id:m.chid})" class="waves-effect waves-light btn blue">Chat settings</a>
                             </div>
                         </div>
                     </div>
