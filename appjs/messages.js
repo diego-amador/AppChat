@@ -2,17 +2,26 @@ angular.module('AppChat').controller('MessageCtrl', ['$stateParams', '$state', '
     function($stateParams, $state, $http, $log, $scope, $rootScope, $location,$localStorage) {
         var thisCtrl = this;
        
+
+        
+    
+        
        //User Parameters loaded from local storage
         var userID=$localStorage.id;
         var author =$localStorage.user_name;
 
         var newMsgId="";
         var msg = ""; //not necessary
-
+        this.newMsgId;
         this.isMember = "";
+        this.messageList = $localStorage.messageList;
+       
         this.messageList = [];
+        this.repliesList = [];
+        this.replies = [];
         this.counter  = 2;
         this.newText = "";
+        this.newTextReply = "";
         this.chatId = $stateParams.id;
 
 
@@ -31,17 +40,24 @@ angular.module('AppChat').controller('MessageCtrl', ['$stateParams', '$state', '
                 // Copy the list of parts in the data variable
                 // into the list of parts in the controller.
 
-                    console.log("response: " + JSON.stringify(response));
+                    //console.log("response: " + JSON.stringify(response));
                     thisCtrl.isMember = 1;
                     thisCtrl.chatId = $stateParams.id;
                     thisCtrl.messageList = response.data.Messages;
+                    $scope.checkbuttonsLike();
+                    $scope.checkbuttonsDisLike();
+                    $localStorage.messageList=thisCtrl.messageList;
+                    //Need to check if this user has liked a message from the Message List 
+                   
+                   
+
                     $rootScope.prueba = "Probando";
             }, // error callback
             function (response){
                 // This is the error function
                 // If we get here, some error occurred.
                 // Verify which was the cause and show an alert.
-                console.log("Err response: " + JSON.stringify(response));
+                //console.log("Err response: " + JSON.stringify(response));
 
                 var status = response.status;
                 if (status == 0){
@@ -77,6 +93,146 @@ angular.module('AppChat').controller('MessageCtrl', ['$stateParams', '$state', '
         
             return matches;
         }
+        this.liked = function (mid)
+        {
+         
+           
+            angular.forEach($localStorage.messageList, function(value, key) {
+                 if(value.message_id==mid)
+                 {
+                     
+                 return value.liked;
+                 }
+                 
+              });
+            }
+        $scope.checkbuttonsLike =function()
+
+            {
+                angular.forEach(thisCtrl.messageList, function(value, key) {
+                    //onsole.log( JSON.stringify(value.message_id));
+                    var url = "http://127.0.0.1:5000/kheApp/dev/messages/likers/"+JSON.stringify(value.message_id);
+
+                    // Now set up the $http object
+                    // It has two function call backs, one for success and one for error
+                    $http.get(url).then(// success call back
+                        function (response){
+
+                        this.likedList=response.data.Likers;
+
+                       
+                        angular.forEach(this.likedList, function(valueMessage, key) {
+                         if( valueMessage.cid==$localStorage.id)
+
+                         {
+                           
+                           var messageDisableId= value.message_id;
+                          // console.log("DISABLING BUTTON FOR MESSAGE :"+messageDisableId);
+                           $scope.disableButtonLike(messageDisableId);
+                           //console.log("parameter pass :"+$scope.disableButton(messageDisableId))
+
+                         }
+                          });
+
+
+
+                        },
+                         function (response){
+            // This is the error function
+            // If we get here, some error occurred.
+            // Verify which was the cause and show an alert.
+            console.log("LIKERS ERROR " + JSON.stringify(response));
+
+            var status = response.status;
+            if (status == 0){
+                alert("No hay conexion a Internet");
+            }
+            else if (status == 401){
+                alert("Su sesion expiro. Conectese de nuevo.");
+            }
+            else if (status == 403){
+                thisCtrl.isMember = -1;
+                alert("No esta autorizado al chat." + this.isMember);
+            }
+            else if (status == 404){
+                //alert("No se encontro la informacion solicitada."); //esta tecatiao pero sirve
+            }
+            else {
+                alert("Error interno del sistema.");
+            }
+        });
+
+
+
+                  });
+                //Need to check if this user has disliked a message from the Message List 
+
+            }
+        
+            $scope.checkbuttonsDisLike =function()
+
+            {
+                angular.forEach(thisCtrl.messageList, function(value, key) {
+                    //onsole.log( JSON.stringify(value.message_id));
+                    var url = "http://127.0.0.1:5000/kheApp/dev/messages/dislikers/"+JSON.stringify(value.message_id);
+                       
+                    // Now set up the $http object
+                    // It has two function call backs, one for success and one for error
+                    $http.get(url).then(// success call back
+                        function (response){
+
+                            
+                                var dislikeList=response.data.Dislikers;
+                       
+                        angular.forEach(dislikeList, function(valueMessage, key) {
+
+                            console.log("CRISTO");
+                         if( valueMessage.cid==$localStorage.id)
+
+                         {
+                           
+                           var messageDisableId= value.message_id;
+                           console.log("DISABLING DISLIKE BUTTON FOR MESSAGE :"+ messageDisableId);
+                           $scope.disableButtonDisLike(messageDisableId);
+                           //console.log("parameter pass :"+$scope.disableButton(messageDisableId))
+
+                         }
+                          });
+
+
+
+                        },
+                         function (response){
+            // This is the error function
+            // If we get here, some error occurred.
+            // Verify which was the cause and show an alert.
+            console.log("LIKERS ERROR " + JSON.stringify(response));
+
+            var status = response.status;
+            if (status == 0){
+                alert("No hay conexion a Internet");
+            }
+            else if (status == 401){
+                alert("Su sesion expiro. Conectese de nuevo.");
+            }
+            else if (status == 403){
+                thisCtrl.isMember = -1;
+                alert("No esta autorizado al chat." + this.isMember);
+            }
+            else if (status == 404){
+                //alert("No se encontro la informacion solicitada."); //esta tecatiao pero sirve
+            }
+            else {
+                alert("Error interno del sistema.");
+            }
+        });
+
+
+
+                  });
+                //Need to check if this user has disliked a message from the Message List 
+
+            }
 
 
         this.postMsg = function(){
@@ -92,6 +248,72 @@ angular.module('AppChat').controller('MessageCtrl', ['$stateParams', '$state', '
 
         // Now create the url with the route to talk with the rest API
         var reqURL = "http://127.0.0.1:5000/kheApp/messages/"+this.chatId;
+        console.log("reqURL: " + reqURL);
+
+        var config = {
+                headers : {
+                    'Content-Type': 'application/json;charset=utf-8;'
+                    //'Content-Type': 'application/x-www-form-urlencoded;'
+
+                }
+        }
+
+        $http.post(reqURL, data, config).then(
+                // Success function
+                function (response) {
+                    console.log(JSON.stringify(response.data));
+                  newMsgId= response.data.id;
+                  $localStorage.newMsgId = response.data.id;
+                   alert("msg id: " + $localStorage.newMsgId); //for debugging purposes
+                    thisCtrl.cycleHashtags();
+
+
+                thisCtrl.messageList.unshift({"message_id": newMsgId, "text" : msg, "author" : author, "likes" : 0, "dislikes" : 0});
+               
+            
+            
+            
+            },function (response) {
+                    var status = response.status;
+                    if (status == 0) {
+                        alert("No hay conexion a Internet");
+                    }
+                    else if (status == 401) {
+                        alert("Su sesion expiro. Conectese de nuevo.");
+                    }
+                    else if (status == 403) {
+                        alert("No esta autorizado a usar el sistema.");
+                    }
+                    else if (status == 404) {
+                        alert("No se encontro la informacion solicitada.");
+                    }
+                    else {
+                        alert("Error interno del sistema.");
+                    }
+                }
+            );
+
+            
+           
+
+            thisCtrl.newText = "";
+           
+        };
+
+
+        this.postReply = function(replyMsgId){
+        msg = thisCtrl.newTextReply; //not necessary
+            //POST MESSAGE QUERY WITH (userID)
+
+            //MSG ID MUST BE TAKEN FROM QUERY RESPONSE
+            //var newMsgId="";
+
+
+        var data = {};
+        data.message = this.newTextReply; //text in textbox
+
+        // Now create the url with the route to talk with the rest API
+        var reqURL = "http://127.0.0.1:5000/kheApp/messages/"+this.chatId+"/reply/"+replyMsgId;
         console.log("reqURL: " + reqURL);
 
         var config = {
@@ -130,10 +352,10 @@ angular.module('AppChat').controller('MessageCtrl', ['$stateParams', '$state', '
                 }
             );
 
-            var nextId = thisCtrl.counter++;
-            thisCtrl.messageList.unshift({"id": nextId, "text" : msg, "author" : author, "like" : 0, "nolike" : 0});
+            //var nextId = thisCtrl.counter++;
+            //thisCtrl.messageList.unshift({"id": nextId, "text" : msg, "author" : author, "like" : 0, "nolike" : 0});
 
-            thisCtrl.newText = "";
+            thisCtrl.newTextReply = "";
         };
 
         this.cycleHashtags = function(){
@@ -149,6 +371,34 @@ angular.module('AppChat').controller('MessageCtrl', ['$stateParams', '$state', '
                   //alert("hashtag:" + hashtagList[tag] + " messageid:" + newMsgId)
                     thisCtrl.postHashtags(hashtagList[tag]);
               }
+        }
+
+        $scope.disableButtonLike = function(mid)
+        {
+            angular.forEach($localStorage.messageList, function(value, key) {
+                if(value.message_id==mid)
+                {
+                    value.liked=!(value.liked);
+                    //console.log("CHANGED VALUE "+value.liked);
+
+
+                }
+              });
+
+        }
+
+        $scope.disableButtonDisLike = function(mid)
+        {
+            angular.forEach($localStorage.messageList, function(value, key) {
+                if(value.message_id==mid)
+                {
+                    value.disliked=!(value.disliked);
+                    console.log("CHANGED VALUE "+value.disliked);
+
+
+                }
+              });
+
         }
 
 
@@ -210,16 +460,186 @@ angular.module('AppChat').controller('MessageCtrl', ['$stateParams', '$state', '
                   );
         }
 
+//        this.loadReplies = function(){
+//            // Get the messages from the server through the rest api
+//            // First set up the url for the route
+//            var url = "http://127.0.0.1:5000/kheApp/messages/replies";
+//
+//            // Now set up the $http object
+//            // It has two function call backs, one for success and one for error
+//            $http.get(url).then(// success call back
+//                function (response){
+//                // The is the sucess function!
+//                // Copy the list of parts in the data variable
+//                // into the list of parts in the controller.
+//
+//                    console.log("response: " + JSON.stringify(response));
+//                    //thisCtrl.isMember = 1;
+//                    //thisCtrl.chatId = $stateParams.id;
+//                    thisCtrl.repliesList = response.data.Messages;
+//                    //alert("heloooo");
+//                    $rootScope.prueba = "Probando";
+//                    thisCtrl.repliesIdOnly();
+//            }, // error callback
+//            function (response){
+//                // This is the error function
+//                // If we get here, some error occurred.
+//                // Verify which was the cause and show an alert.
+//                console.log("Err response: " + JSON.stringify(response));
+//
+//                var status = response.status;
+//                if (status == 0){
+//                    alert("No hay conexion a Internet");
+//                }
+//                else if (status == 401){
+//                    alert("Su sesion expiro. Conectese de nuevo.");
+//                }
+//                else if (status == 403){
+//                    //thisCtrl.isMember = -1;
+//                    alert("No esta autorizado al chat." + this.isMember);
+//                }
+//                else if (status == 404){
+//                    //alert("No se encontro la informacion solicitada."); //esta tecatiao pero sirve
+//                }
+//                else {
+//                    alert("Error interno del sistema.");
+//                }
+//            });
+//
+//
+//            $log.error("Replies Loaded: ", JSON.stringify(thisCtrl.messageList));
+//        };
+
         //Controller Function to add a dislike to a message
         this.dislike = function(id){
-            console.log(id + " is the DB ID of the message DISLIKED by : "+userID)
-        };
 
+
+            console.log(id + " is the DB ID of the message DISLIKED by : "+userID)
+
+            var url = "http://127.0.0.1:5000/kheApp/messages/dislike/"+id;
+
+            
+            $http.post(url).then(// success call back
+                function (response){
+               
+
+                    console.log("response: " + JSON.stringify(response));
+                    
+            }, // error callback
+            function (response){
+                // This is the error function
+                // If we get here, some error occurred.
+                // Verify which was the cause and show an alert.
+                console.log("Err response: " + JSON.stringify(response));
+
+                var status = response.status;
+                if (status == 0){
+                    alert("No hay conexion a Internet");
+                }
+                else if (status == 401){
+                    alert("Su sesion expiro. Conectese de nuevo.");
+                }
+                else if (status == 403){
+                    //thisCtrl.isMember = -1;
+                    alert("No esta autorizado al chat." + this.isMember);
+                }
+                else if (status == 404){
+                    //alert("No se encontro la informacion solicitada."); //esta tecatiao pero sirve
+                }
+                else {
+                    alert("Error interno del sistema.");
+                }
+            });
+
+
+            $log.error("Replies Loaded: ", JSON.stringify(thisCtrl.messageList));
+        };
+        this.dislikeCheck =function(mid)
+        {
+            angular.forEach($localStorage.messageList, function(value, key) {
+                if(value.message_id==mid)
+                {
+                   if( value.disliked==false || value.dislikes > 0)
+                   {
+                        value.dislikes=(value.dislikes-1);
+
+                   }
+
+
+                }
+              });
+
+        }
+
+        this.likeCheck =function(mid)
+        {
+            angular.forEach($localStorage.messageList, function(value, key) {
+                if(value.message_id==mid)
+                {
+                   if( value.liked==false || value.likes > 0)
+                   {
+                        value.likes=(value.likes-1);
+
+                   }
+
+
+                }
+              });
+
+        }
         //Controller Function to add a like to a message
         this.like = function(id){
-            console.log(id + " is the DB ID of the message LIKED by : "+userID)
+
+            
+
+            var url = "http://127.0.0.1:5000/kheApp/messages/like/"+id;
+
+            
+            $http.post(url).then(// success call back
+                function (response){
+               
+
+                    console.log("response: " + JSON.stringify(response));
+                    
+            }, // error callback
+            function (response){
+                // This is the error function
+                // If we get here, some error occurred.
+                // Verify which was the cause and show an alert.
+                console.log("Err response: " + JSON.stringify(response));
+
+                var status = response.status;
+                if (status == 0){
+                    alert("No hay conexion a Internet");
+                }
+                else if (status == 401){
+                    alert("Su sesion expiro. Conectese de nuevo.");
+                }
+                else if (status == 403){
+                    //thisCtrl.isMember = -1;
+                    alert("No esta autorizado al chat." + this.isMember);
+                }
+                else if (status == 404){
+                    //alert("No se encontro la informacion solicitada."); //esta tecatiao pero sirve
+                }
+                else {
+                    alert("Error interno del sistema.");
+                }
+            });
+
+
+            $log.error("Replies Loaded: ", JSON.stringify(thisCtrl.messageList));
+
         };
 
+        this.repliesIdOnly = function(){
+            //[].push.apply(thisCtrl.replies, thisCtrl.repliesList)
+            //alert(thisCtrl.repliesList[r].reply)
+            //alert(thisCtrl.replies)
+        }
+
         this.loadMessages();
+        //this.loadReplies();
+
 
 }]);
