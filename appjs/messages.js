@@ -235,70 +235,133 @@ angular.module('AppChat').controller('MessageCtrl', ['$stateParams', '$state', '
             }
 
 
-        this.postMsg = function(){
-            msg = thisCtrl.newText; //not necessary
-            //POST MESSAGE QUERY WITH (userID)
 
-            //MSG ID MUST BE TAKEN FROM QUERY RESPONSE
-            //var newMsgId="";
-
-
-        var data = {};
-        data.message = this.newText; //text in textbox
-
-        // Now create the url with the route to talk with the rest API
-        var reqURL = "http://127.0.0.1:5000/kheApp/messages/"+this.chatId;
-        console.log("reqURL: " + reqURL);
-
-        var config = {
-                headers : {
-                    'Content-Type': 'application/json;charset=utf-8;'
-                    //'Content-Type': 'application/x-www-form-urlencoded;'
-
+        this.postMsg = function(media){
+            var msg = thisCtrl.newText;
+            if(!msg && !media){ console.log('Nothing to post.'); } // If no message or media, don't do anything.
+            else{
+                var pic= '';
+                var mediaType="n";
+                console.log('Media: ' + media);
+                if (media){
+                    pic = "media/group_pics/" + media.name; // Only files in this folder allowed for now.
+                    if(media.name.includes(".jpg") ||
+                        media.name.includes(".jpeg") ||
+                            media.name.includes(".png")){
+                                 mediaType="p";
+                    }
+                    else if(media.name.includes(".mp4") ||
+                        media.name.includes(".mpeg") ||
+                            media.name.includes(".avi")){
+                                 mediaType="v";
+                    }
                 }
+                var today = new Date();
+                var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+                var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+                var dateTime = date+' '+time;
+
+                if(!media){
+                    thisCtrl.upload();
+                }else{
+                    thisCtrl.firebaseUploadPost(dateTime, msg, mediaType, media);
+                }
+
+
+               }
+        };  
+        
+        this.firebaseUploadPost = function(dateTime, msg, mediaType, media){
+            var storage = firebase.storage();
+            var storageRef = storage.ref();
+            var fileRef = storageRef.child(media.name);
+
+
+            console.log("Let's upload a file!");
+
+             var uploadTask = fileRef.put(media).then(snapshot => {
+                   return snapshot.ref.getDownloadURL();   // Will return a promise with the download link
+               })
+
+               .then(function(downloadURL) {
+                  console.log(`Successfully uploaded file and got download link - ${downloadURL}`);
+                  this.downURL = downloadURL;
+                 console.log(this.downURL);
+                 thisCtrl.upload(dateTime, msg, mediaType, downloadURL);
+                  return downloadURL;
+               })
+
+               .catch(error => {
+                  // Use to signal error if something goes wrong.
+                  console.log(`Failed to upload file and get link - ${error}`);
+               });
+
+    };
+
+    this.upload = function(){
+        msg = thisCtrl.newText; //not necessary
+        //POST MESSAGE QUERY WITH (userID)
+
+        //MSG ID MUST BE TAKEN FROM QUERY RESPONSE
+        //var newMsgId="";
+
+
+    var data = {};
+    data.message = this.newText; //text in textbox
+
+    // Now create the url with the route to talk with the rest API
+    var reqURL = "http://127.0.0.1:5000/kheApp/messages/"+this.chatId;
+    console.log("reqURL: " + reqURL);
+
+    var config = {
+            headers : {
+                'Content-Type': 'application/json;charset=utf-8;'
+                //'Content-Type': 'application/x-www-form-urlencoded;'
+
+            }
         }
 
-        $http.post(reqURL, data, config).then(
-                // Success function
-                function (response) {
-                    console.log(JSON.stringify(response.data));
-                  newMsgId= response.data.id;
-                  $localStorage.newMsgId = response.data.id;
-                   alert("msg id: " + $localStorage.newMsgId); //for debugging purposes
-                    thisCtrl.cycleHashtags();
+    $http.post(reqURL, data, config).then(
+            // Success function
+            function (response) {
+                console.log(JSON.stringify(response.data));
+              newMsgId= response.data.id;
+              $localStorage.newMsgId = response.data.id;
+               alert("msg id: " + $localStorage.newMsgId); //for debugging purposes
+                thisCtrl.cycleHashtags();
 
 
-                thisCtrl.messageList.unshift({"message_id": newMsgId, "text" : msg, "author" : author, "likes" : 0, "dislikes" : 0});
-               
-            
-            
-            
-            },function (response) {
-                    var status = response.status;
-                    if (status == 0) {
-                        alert("No hay conexion a Internet");
-                    }
-                    else if (status == 401) {
-                        alert("Su sesion expiro. Conectese de nuevo.");
-                    }
-                    else if (status == 403) {
-                        alert("No esta autorizado a usar el sistema.");
-                    }
-                    else if (status == 404) {
-                        alert("No se encontro la informacion solicitada.");
-                    }
-                    else {
-                        alert("Error interno del sistema.");
-                    }
+            thisCtrl.messageList.unshift({"message_id": newMsgId, "text" : msg, "author" : author, "likes" : 0, "dislikes" : 0});
+           
+        
+        
+        
+        },function (response) {
+                var status = response.status;
+                if (status == 0) {
+                    alert("No hay conexion a Internet");
                 }
-            );
+                else if (status == 401) {
+                    alert("Su sesion expiro. Conectese de nuevo.");
+                }
+                else if (status == 403) {
+                    alert("No esta autorizado a usar el sistema.");
+                }
+                else if (status == 404) {
+                    alert("No se encontro la informacion solicitada.");
+                }
+                else {
+                    alert("Error interno del sistema.");
+                }
+            }
+        );
 
-            
-           
+        
+       
 
-            thisCtrl.newText = "";
-           
-        };
+        thisCtrl.newText = "";
+       
+    };
 
 
         this.postReply = function(replyMsgId){
