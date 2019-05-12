@@ -16,7 +16,7 @@
                     <form ng-app="AppChat" ng-controller="MyCtrl" name="form">
                         <!-- <a class="material-icons btn waves-effect waves-light blue" type="file" ngf-select="uploadFiles($file, $invalidFiles)" accept="image/*" ngf-max-height="1000" ngf-max-size="20MB">
                         <i class="material-icons">attach_file</i></a> -->
-                        <button class= "material-icons btn waves-effect waves-light blue" ngf-select="MessageCtrl.postMsg(picFile)" ng-model="picFile" name="file"
+                        <button ng-disabled="!MessageCtrl.newText" class= "material-icons btn waves-effect waves-light blue" ngf-select="MessageCtrl.postMsg(picFile)" ng-model="picFile" name="file"
                         accept="media/group_pics/*"
                         ngf-model-invalid="errorFile">
                             <i class="far fa-image" ></i>attach_file</button>
