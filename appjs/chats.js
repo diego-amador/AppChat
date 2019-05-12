@@ -1,5 +1,5 @@
-angular.module('AppChat').controller('ChatCtrl', ['$stateParams', '$state', '$http', '$log', '$scope','$rootScope', '$location',
-    function($stateParams, $state, $http, $log, $scope, $rootScope, $location) {
+angular.module('AppChat').controller('ChatCtrl', ['$stateParams', '$state', '$http', '$log', '$scope','$rootScope', '$location','$localStorage', '$firebaseStorage',
+    function($stateParams, $state, $http, $log, $scope, $rootScope, $location, $localStorage, $firebaseStorage) {
         var thisCtrl = this;
         var cc = -1;
 
@@ -14,9 +14,9 @@ angular.module('AppChat').controller('ChatCtrl', ['$stateParams', '$state', '$ht
         this.loadMessages = function(){
             // Get the messages from the server through the rest api
           
-
+            //alert($localStorage.rngToken)
             // First set up the url for the route
-            var url = "http://127.0.0.1:5000/kheApp/chats";
+            var url = "http://127.0.0.1:5000/kheApp/" + $localStorage.rngToken + "/chats";
 
             // Now set up the $http object
             // It has two function call backs, one for success and one for error
@@ -97,7 +97,7 @@ angular.module('AppChat').controller('ChatCtrl', ['$stateParams', '$state', '$ht
         data.chatname = this.newText; //text in textbox
 
         // Now create the url with the route to talk with the rest API
-        var reqURL = "http://127.0.0.1:5000/kheApp/chats";
+        var reqURL = "http://127.0.0.1:5000/kheApp/" + $localStorage.rngToken + "/chats";
         console.log("reqURL: " + reqURL);
 
         var config = {

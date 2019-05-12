@@ -30,7 +30,7 @@ angular.module('AppChat').controller('MessageCtrl', ['$stateParams', '$state', '
         this.loadMessages = function(){
             // Get the messages from the server through the rest api
             // First set up the url for the route
-            var url = "http://127.0.0.1:5000/kheApp/messages/"+$stateParams.id;
+            var url = "http://127.0.0.1:5000/kheApp/" + $localStorage.rngToken + "/messages/"+$stateParams.id;
 
             // Now set up the $http object
             // It has two function call backs, one for success and one for error
@@ -242,8 +242,10 @@ angular.module('AppChat').controller('MessageCtrl', ['$stateParams', '$state', '
             else{
                 var pic= '';
                 var mediaType="n";
-                console.log('Media: ' + media.name);
+
+
                 if (media){
+                    console.log('Media: ' + media.name);
                     pic = "media/group_pics/" + media.name; // Only files in this folder allowed for now.
                     if(media.name.includes(".jpg") ||
                         media.name.includes(".jpeg") ||
@@ -262,6 +264,7 @@ angular.module('AppChat').controller('MessageCtrl', ['$stateParams', '$state', '
                 var dateTime = date+' '+time;
 
                 if(!media){
+                    //alert($localStorage.mediaURL)
                     thisCtrl.upload();
                 }else{
                     thisCtrl.firebaseUploadPost(dateTime, msg, mediaType, media);
@@ -310,8 +313,9 @@ angular.module('AppChat').controller('MessageCtrl', ['$stateParams', '$state', '
     var data = {};
     data.message = this.newText; //text in textbox
     data.media=$localStorage.mediaURL;
+    //alert(data.media)
     // Now create the url with the route to talk with the rest API
-    var reqURL = "http://127.0.0.1:5000/kheApp/messages/"+this.chatId;
+    var reqURL = "http://127.0.0.1:5000/kheApp/" + $localStorage.rngToken + "/messages/"+this.chatId;
     console.log("reqURL: " + reqURL);
 
     var config = {
@@ -330,7 +334,7 @@ angular.module('AppChat').controller('MessageCtrl', ['$stateParams', '$state', '
               $localStorage.newMsgId = response.data.id;
                alert("msg id: " + $localStorage.newMsgId); //for debugging purposes
                 thisCtrl.cycleHashtags();
-
+                $localStorage.mediaURL = "";
 
             thisCtrl.messageList.unshift({"message_id": newMsgId, "text" : msg, "author" : author, "likes" : 0, "dislikes" : 0});
            
@@ -377,7 +381,7 @@ angular.module('AppChat').controller('MessageCtrl', ['$stateParams', '$state', '
         data.message = this.newTextReply; //text in textbox
 
         // Now create the url with the route to talk with the rest API
-        var reqURL = "http://127.0.0.1:5000/kheApp/messages/"+this.chatId+"/reply/"+replyMsgId;
+        var reqURL = "http://127.0.0.1:5000/kheApp/" + $localStorage.rngToken + "/messages/"+this.chatId+"/reply/"+replyMsgId;
         console.log("reqURL: " + reqURL);
 
         var config = {
@@ -580,7 +584,7 @@ angular.module('AppChat').controller('MessageCtrl', ['$stateParams', '$state', '
 
             console.log(id + " is the DB ID of the message DISLIKED by : "+userID)
 
-            var url = "http://127.0.0.1:5000/kheApp/messages/dislike/"+id;
+            var url = "http://127.0.0.1:5000/kheApp/" + $localStorage.rngToken + "/messages/dislike/"+id;
 
             
             $http.post(url).then(// success call back
@@ -656,7 +660,7 @@ angular.module('AppChat').controller('MessageCtrl', ['$stateParams', '$state', '
 
             
 
-            var url = "http://127.0.0.1:5000/kheApp/messages/like/"+id;
+            var url = "http://127.0.0.1:5000/kheApp/" + $localStorage.rngToken + "/messages/like/"+id;
 
             
             $http.post(url).then(// success call back

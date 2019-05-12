@@ -1,6 +1,7 @@
-angular.module('AppChat').controller('ContactCtrl', ['$stateParams', '$state', '$http', '$log', '$scope','$rootScope', '$location',
-    function($stateParams, $state, $http, $log, $scope, $rootScope, $location) {
+angular.module('AppChat').controller('ContactCtrl', ['$stateParams', '$state', '$http', '$log', '$scope','$rootScope', '$location','$localStorage', '$firebaseStorage',
+    function($stateParams, $state, $http, $log, $scope, $rootScope, $location, $localStorage, $firebaseStorage) {
         var thisCtrl = this;
+
         var cc = -1;
 
         var newChId = "";
@@ -36,7 +37,7 @@ angular.module('AppChat').controller('ContactCtrl', ['$stateParams', '$state', '
         alert("cid: " +data.cid)
 
         // Now create the url with the route to talk with the rest API
-        var reqURL = "http://127.0.0.1:5000/kheApp/contacts/"+ cid;
+        var reqURL = "http://127.0.0.1:5000/kheApp/" + $localStorage.rngToken + "/contacts/"+ cid;
         console.log("reqURL: " + reqURL);
 
 
@@ -79,7 +80,7 @@ angular.module('AppChat').controller('ContactCtrl', ['$stateParams', '$state', '
 
 
             // First set up the url for the route
-            var url = "http://127.0.0.1:5000/kheApp/contacts";
+            var url = "http://127.0.0.1:5000/kheApp/" + $localStorage.rngToken + "/contacts";
 
             // Now set up the $http object
             // It has two function call backs, one for success and one for error
@@ -150,7 +151,7 @@ angular.module('AppChat').controller('ContactCtrl', ['$stateParams', '$state', '
             }
 
         // Now create the url with the route to talk with the rest API
-        var reqURL = "http://127.0.0.1:5000/kheApp/contacts";
+        var reqURL = "http://127.0.0.1:5000/kheApp/" + $localStorage.rngToken + "/contacts";
         console.log("reqURL: " + reqURL);
 
 

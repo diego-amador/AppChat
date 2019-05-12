@@ -12,6 +12,8 @@ function($stateParams, $state, $http, $log, $scope, $rootScope, $location,$local
 
         var user_name = "";
 
+        var rngToken = "";
+
 
 
 
@@ -48,8 +50,9 @@ function($stateParams, $state, $http, $log, $scope, $rootScope, $location,$local
                    //LOCAL STORAGE SAVING
                     $localStorage.id=this.id = response.data.id
                    $localStorage.user_name= response.data.user_name
+                   $localStorage.rngToken=this.rngToken = response.data.rngToken
 
-                    alert("Logged in as: " + this.user_name);
+                    alert("Logged in as: " + this.user_name + this.rngToken);
                     $location.url('/home/-1');
                 },function (response) {
                     // This is the error function

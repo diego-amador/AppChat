@@ -11,7 +11,7 @@ angular.module('AppChat').controller('LogoutCtrl', ['$http', '$log', '$scope','$
 
 
             // First set up the url for the route
-            var url = "http://127.0.0.1:5000/kheApp/logout";
+            var url = "http://127.0.0.1:5000/kheApp/logout/" + $localStorage.rngToken;
 
             // Now set up the $http object
             // It has two function call backs, one for success and one for error
@@ -22,8 +22,8 @@ angular.module('AppChat').controller('LogoutCtrl', ['$http', '$log', '$scope','$
                 // into the list of parts in the controller.
 
                     console.log("response: " + JSON.stringify(response));
-          //DELETE LOCAL STORAGE INFORMATION
-        $localStorage.$reset();
+                    //DELETE LOCAL STORAGE INFORMATION
+                    $localStorage.$reset();
                     this.login = "FALSE";
                     alert("Logged out");
                     $location.url('/login');

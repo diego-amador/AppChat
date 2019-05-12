@@ -1,5 +1,5 @@
-angular.module('AppChat').controller('ChatSettingCtrl', ['$stateParams', '$state', '$http', '$log', '$scope','$rootScope', '$location',
-    function($stateParams, $state, $http, $log, $scope, $rootScope, $location) {
+angular.module('AppChat').controller('ChatSettingCtrl', ['$stateParams', '$state', '$http', '$log', '$scope','$rootScope', '$location','$localStorage', '$firebaseStorage',
+    function($stateParams, $state, $http, $log, $scope, $rootScope, $location, $localStorage, $firebaseStorage) {
         var thisCtrl = this;
         var cc = -1;
 
@@ -20,7 +20,7 @@ angular.module('AppChat').controller('ChatSettingCtrl', ['$stateParams', '$state
 
 
             // First set up the url for the route
-            var url = "http://127.0.0.1:5000/kheApp/chats/" +$stateParams.id + "/members";
+            var url = "http://127.0.0.1:5000/kheApp/" + $localStorage.rngToken + "/chats/" +$stateParams.id + "/members";
 
             // Now set up the $http object
             // It has two function call backs, one for success and one for error
@@ -80,7 +80,7 @@ angular.module('AppChat').controller('ChatSettingCtrl', ['$stateParams', '$state
         alert("cid: " +data.cid)
 
         // Now create the url with the route to talk with the rest API
-        var reqURL = "http://127.0.0.1:5000/kheApp/chats/" +$stateParams.id + "/members/" + cid;
+        var reqURL = "http://127.0.0.1:5000/kheApp/" + $localStorage.rngToken + "/chats/" +$stateParams.id + "/members/" + cid;
         console.log("reqURL: " + reqURL);
 
 
@@ -123,7 +123,7 @@ angular.module('AppChat').controller('ChatSettingCtrl', ['$stateParams', '$state
 
 
             // First set up the url for the route
-            var url = "http://127.0.0.1:5000/kheApp/contacts";
+            var url = "http://127.0.0.1:5000/kheApp/" + $localStorage.rngToken + "/contacts";
 
             // Now set up the $http object
             // It has two function call backs, one for success and one for error
@@ -192,7 +192,7 @@ angular.module('AppChat').controller('ChatSettingCtrl', ['$stateParams', '$state
             }
 
         // Now create the url with the route to talk with the rest API
-        var reqURL = "http://127.0.0.1:5000/kheApp/chats/" +$stateParams.id + "/members";
+        var reqURL = "http://127.0.0.1:5000/kheApp/" + $localStorage.rngToken + "/chats/" +$stateParams.id + "/members";
         console.log("reqURL: " + reqURL);
 
 
@@ -244,7 +244,7 @@ angular.module('AppChat').controller('ChatSettingCtrl', ['$stateParams', '$state
         //alert("cid: " +data.cid)
 
         // Now create the url with the route to talk with the rest API
-        var reqURL = "http://127.0.0.1:5000/kheApp/chats/" +$stateParams.id ;
+        var reqURL = "http://127.0.0.1:5000/kheApp/" + $localStorage.rngToken + "/chats/" +$stateParams.id ;
         console.log("reqURL: " + reqURL);
 
 
