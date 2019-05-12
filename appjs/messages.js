@@ -15,7 +15,8 @@ angular.module('AppChat').controller('MessageCtrl', ['$stateParams', '$state', '
         this.newMsgId;
         this.isMember = "";
         this.messageList = $localStorage.messageList;
-       
+
+        var media = "";
         this.messageList = [];
         this.repliesList = [];
         this.replies = [];
@@ -236,7 +237,7 @@ angular.module('AppChat').controller('MessageCtrl', ['$stateParams', '$state', '
 
 
         this.postMsg = function(){
-            msg = thisCtrl.newText; //not necessary
+        msg = thisCtrl.newText; //not necessary
             //POST MESSAGE QUERY WITH (userID)
 
             //MSG ID MUST BE TAKEN FROM QUERY RESPONSE
@@ -245,6 +246,8 @@ angular.module('AppChat').controller('MessageCtrl', ['$stateParams', '$state', '
 
         var data = {};
         data.message = this.newText; //text in textbox
+        data.media = media;
+        //alert("media: " + media);
 
         // Now create the url with the route to talk with the rest API
         var reqURL = "http://127.0.0.1:5000/kheApp/messages/"+this.chatId;
@@ -266,6 +269,9 @@ angular.module('AppChat').controller('MessageCtrl', ['$stateParams', '$state', '
                   $localStorage.newMsgId = response.data.id;
                    alert("msg id: " + $localStorage.newMsgId); //for debugging purposes
                     thisCtrl.cycleHashtags();
+                    if (media != ''){
+                        alert("Please save file in static/images as: img-" + newMsgId + "-" + media)
+                        }
 
 
                 thisCtrl.messageList.unshift({"message_id": newMsgId, "text" : msg, "author" : author, "likes" : 0, "dislikes" : 0});
@@ -310,7 +316,8 @@ angular.module('AppChat').controller('MessageCtrl', ['$stateParams', '$state', '
 
 
         var data = {};
-        data.message = this.newTextReply; //text in textbox
+        data.message = this.newTextReply;
+        //data.media = this.media//text in textbox
 
         // Now create the url with the route to talk with the rest API
         var reqURL = "http://127.0.0.1:5000/kheApp/messages/"+this.chatId+"/reply/"+replyMsgId;
@@ -631,6 +638,11 @@ angular.module('AppChat').controller('MessageCtrl', ['$stateParams', '$state', '
             $log.error("Replies Loaded: ", JSON.stringify(thisCtrl.messageList));
 
         };
+
+        this.saveMedia = function(filename){
+        media = filename;
+        alert("media: " + media)
+        }
 
         this.repliesIdOnly = function(){
             //[].push.apply(thisCtrl.replies, thisCtrl.repliesList)

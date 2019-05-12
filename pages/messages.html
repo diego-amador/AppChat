@@ -8,20 +8,26 @@
                     <textarea style="background: white" id="textarea1" class="materialize-textarea" ng-model="MessageCtrl.newText" required></textarea>
                 </div>
                 
-                <div class="card-action light-grey">
+                <div class="card-action light-grey">{{f.name}}
                     <a ng-disabled="!MessageCtrl.newText" class="btn waves-effect waves-light blue" type="submit" name="action" ng-click="MessageCtrl.postMsg()">Send
                 </a>
                     <!-- <a class="material-icons btn waves-effect waves-light blue" type="file" ngf-select="uploadFiles($file, $invalidFiles)" accept="image/*" ngf-max-height="1000" ngf-max-size="1MB">
                     <i class="material-icons">attach_file</i></a>-->
                     <form ng-app="AppChat" ng-controller="MyCtrl" name="form">
-                        <a class="material-icons btn waves-effect waves-light blue" type="file" ngf-select="uploadFiles($file, $invalidFiles)" accept="image/*" ngf-max-height="1000" ngf-max-size="20MB">
+
+                        <a class="material-icons btn waves-effect waves-light blue" type="file" ngf-select="uploadFiles($file, $invalidFiles)" accept="image/*" ngf-max-height="1000" ngf-max-size="20MB" >
                         <i class="material-icons">attach_file</i></a>
+                        <button class="btn waves-effect waves-light blue" ng-click="MessageCtrl.saveMedia(f.name)">Confirm media</button>
+
+
+
 
                         <div style="font:smaller">{{f.name}} {{errFile.name}} {{errFile.$error}} {{errFile.$errorParam}}
                                 <span class="progress" ng-show="f.progress >= 0">
                                     <div style="width:{{f.progress}}%"  
                                          ng-bind="f.progress + '%'"></div>
                                 </span>
+
                             </div>     
                             {{errorMsg}}
                     </form>
