@@ -1,6 +1,6 @@
 (function() {
 
-    var app = angular.module('AppChat',['ngFileUpload', 'ui.router','ngStorage']);
+    var app = angular.module('AppChat',['ngFileUpload', 'ui.router','ngStorage','firebase']);
 
     app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', function ($stateProvider, $urlRouterProvider, $locationProvider, $location,$localStorage) {
         $stateProvider.state('/login', {

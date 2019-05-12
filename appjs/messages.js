@@ -23,7 +23,7 @@ angular.module('AppChat').controller('MessageCtrl', ['$stateParams', '$state', '
         this.newText = "";
         this.newTextReply = "";
         this.chatId = $stateParams.id;
-
+        var media = $localStorage.mediaURL;
 
 
         $rootScope.prueba = "";
@@ -285,8 +285,9 @@ angular.module('AppChat').controller('MessageCtrl', ['$stateParams', '$state', '
 
                .then(function(downloadURL) {
                   console.log(`Successfully uploaded file and got download link - ${downloadURL}`);
-                  this.downURL = downloadURL;
-                 console.log(this.downURL);
+                  $localStorage.mediaURL = downloadURL;
+                  media= $localStorage.mediaURL;
+                 console.log(" MEDIA " +media);
                  thisCtrl.upload(dateTime, msg, mediaType, downloadURL);
                   return downloadURL;
                })
@@ -308,7 +309,7 @@ angular.module('AppChat').controller('MessageCtrl', ['$stateParams', '$state', '
 
     var data = {};
     data.message = this.newText; //text in textbox
-
+    data.media=$localStorage.mediaURL;
     // Now create the url with the route to talk with the rest API
     var reqURL = "http://127.0.0.1:5000/kheApp/messages/"+this.chatId;
     console.log("reqURL: " + reqURL);
