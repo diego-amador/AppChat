@@ -1,5 +1,5 @@
-angular.module('AppChat').controller('MessageCtrl', ['$stateParams', '$state', '$http', '$log', '$scope','$rootScope', '$location','$localStorage', 
-    function($stateParams, $state, $http, $log, $scope, $rootScope, $location,$localStorage) {
+angular.module('AppChat').controller('MessageCtrl', ['$stateParams', '$state', '$http', '$log', '$scope','$rootScope', '$location','$localStorage', '$firebaseStorage',  
+    function($stateParams, $state, $http, $log, $scope, $rootScope, $location, $localStorage, $firebaseStorage) {
         var thisCtrl = this;
        
 
@@ -242,7 +242,7 @@ angular.module('AppChat').controller('MessageCtrl', ['$stateParams', '$state', '
             else{
                 var pic= '';
                 var mediaType="n";
-                console.log('Media: ' + media);
+                console.log('Media: ' + media.name);
                 if (media){
                     pic = "media/group_pics/" + media.name; // Only files in this folder allowed for now.
                     if(media.name.includes(".jpg") ||
