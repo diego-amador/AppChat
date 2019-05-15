@@ -332,7 +332,7 @@ angular.module('AppChat').controller('MessageCtrl', ['$stateParams', '$state', '
                 console.log(JSON.stringify(response.data));
               newMsgId= response.data.id;
               $localStorage.newMsgId = response.data.id;
-               alert("msg id: " + $localStorage.newMsgId); //for debugging purposes
+              // alert("msg id: " + $localStorage.newMsgId); //for debugging purposes
                 thisCtrl.cycleHashtags();
                 $localStorage.mediaURL = "";
 
@@ -397,7 +397,7 @@ angular.module('AppChat').controller('MessageCtrl', ['$stateParams', '$state', '
                 function (response) {
                     console.log(JSON.stringify(response.data));
                     newMsgId = response.data.id
-                    alert("msg id: " + newMsgId); //for debugging purposes
+                   // alert("msg id: " + newMsgId); //for debugging purposes
                     thisCtrl.cycleHashtags();
 
                 },function (response) {
@@ -500,7 +500,7 @@ angular.module('AppChat').controller('MessageCtrl', ['$stateParams', '$state', '
                              //$localStorage.id=this.id = response.data.id
                              //$localStorage.user_name= response.data.user_name
 
-                              alert("hashtag: " +data.hashtag + " " + "id: " + data.id); //for debugging purposes
+                            //  alert("hashtag: " +data.hashtag + " " + "id: " + data.id); //for debugging purposes
                               //$location.url('/home/-1');
                           },function (response) {
                               // This is the error function
