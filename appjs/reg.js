@@ -69,9 +69,6 @@ angular.module('AppChat').controller('RegCtrl', ['$stateParams', '$state', '$htt
                     else if (status == 404) {
                         alert("No se encontro la informacion solicitada.");
                     }
-                    else if (status == 405) {
-                        alert("Phone number too long.");
-                    }
                     else {
                         alert("Error interno del sistema.");
                     }
