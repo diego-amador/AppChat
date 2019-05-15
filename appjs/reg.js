@@ -57,6 +57,9 @@ angular.module('AppChat').controller('RegCtrl', ['$stateParams', '$state', '$htt
                     if (status == 0) {
                         alert("No hay conexion a Internet");
                     }
+                    else if (status == 400) {
+                        alert("" + response.data.Error);
+                    }
                     else if (status == 401) {
                         alert("Su sesion expiro. Conectese de nuevo.");
                     }
@@ -65,6 +68,9 @@ angular.module('AppChat').controller('RegCtrl', ['$stateParams', '$state', '$htt
                     }
                     else if (status == 404) {
                         alert("No se encontro la informacion solicitada.");
+                    }
+                    else if (status == 405) {
+                        alert("Phone number too long.");
                     }
                     else {
                         alert("Error interno del sistema.");
